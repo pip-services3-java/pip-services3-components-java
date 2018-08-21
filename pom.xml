@@ -39,6 +39,12 @@
     <url>https://github.com/pip-services-java/pip-services-components-java</url>
   </scm>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
