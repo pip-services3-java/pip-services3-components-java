@@ -1,6 +1,7 @@
 package org.pipservices.components.info;
 
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public final class ContextInfo implements IReconfigurable{
     private StringValueMap _properties = new StringValueMap();
 	private String _description;
 	private String contextId;
-	private ZonedDateTime startTime;
+	private ZonedDateTime startTime = ZonedDateTime.now(ZoneId.of("UTC"));
 	private long uptime;
 	private List<String> components;
 

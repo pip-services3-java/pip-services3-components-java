@@ -18,7 +18,7 @@ public class CompositeLogger extends Logger {
 		
 		List<Object> loggers = references.getOptional(new Descriptor(null, "logger", null, null, null)); 
 		for (Object logger : loggers) {
-			if (logger instanceof ILogger)
+			if (logger instanceof ILogger && logger != this)
 				_loggers.add((ILogger)logger);
 		}
 	}

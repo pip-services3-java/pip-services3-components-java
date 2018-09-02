@@ -53,12 +53,12 @@ public class ConnectionParamsTest {
 	@Test
 	public void testUri() throws ApplicationException {
 		ConnectionParams connection = new ConnectionParams();
-		assertEquals(connection.getUri(), "http://localhost:0");
+		assertNull(connection.getUri());
 		
 		connection.setProtocol("https");
 		connection.setPort(3000);
 		connection.setHost("pipgoals");
-		assertEquals(connection.getUri(), "https://pipgoals:3000");
+		assertNull(connection.getUri());
 	}
 
 }

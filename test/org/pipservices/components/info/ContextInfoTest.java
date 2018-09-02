@@ -45,13 +45,11 @@ public final class ContextInfoTest {
 	public void TestStartTime()
     {
 		ContextInfo contextInfo = new ContextInfo();
-		contextInfo.setStartTime(ZonedDateTime.of(2015, 10, 18, 0, 30, 0, 0, 
-						    ZoneId.of("America/Sao_Paulo")));
-        assertEquals(contextInfo.getStartTime().getYear(), ZonedDateTime.now().getYear());
-        assertEquals(contextInfo.getStartTime().getMonth(), ZonedDateTime.now().getMonth());
+        assertEquals(contextInfo.getStartTime().getYear(), ZonedDateTime.now(ZoneId.of("UTC")).getYear());
+        assertEquals(contextInfo.getStartTime().getMonth(), ZonedDateTime.now(ZoneId.of("UTC")).getMonth());
         
-        contextInfo.setStartTime(ZonedDateTime.of(1975, 4, 8, 0, 0, 0, 0, ZoneId.of("Russia/Moscow") ));
-        assertEquals(contextInfo.getStartTime(), ZonedDateTime.of(1975, 4, 8, 0, 0, 0, 0, ZoneId.of("Russia/Moscow")));
+        contextInfo.setStartTime(ZonedDateTime.of(1975, 4, 8, 0, 0, 0, 0, ZoneId.of("UTC") ));
+        assertEquals(contextInfo.getStartTime(), ZonedDateTime.of(1975, 4, 8, 0, 0, 0, 0, ZoneId.of("UTC")));
     }
 	
 	@Test

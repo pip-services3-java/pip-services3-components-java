@@ -117,13 +117,7 @@ public class ConnectionParams extends ConfigParams {
 	 * @return uri as <protocol>://<host | ip>:<port>
 	 */
 	public String getUri() {
-		if (getProtocol() == null)
-			setProtocol("http");
-		
-		if (getHost() == null)
-			setHost("localhost");
-		
-		return getProtocol() + "://" + getHost() + ":" + getPort();
+		return getAsNullableString("uri");
 	}
 	
 	public void setUri(String value) {
