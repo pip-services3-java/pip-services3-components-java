@@ -15,7 +15,7 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
         _config = config;
     }
 
-    public ConfigParams readConfig(String correlationId) {
+    public ConfigParams readConfig(String correlationId, ConfigParams parameters) {
         return new ConfigParams(_config);
     }
 
