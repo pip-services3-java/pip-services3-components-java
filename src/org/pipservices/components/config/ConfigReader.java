@@ -3,6 +3,7 @@ package org.pipservices.components.config;
 import java.io.IOException;
 
 import org.pipservices.commons.config.*;
+import org.pipservices.commons.errors.ApplicationException;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -21,11 +22,9 @@ public abstract class ConfigReader implements IConfigurable, IConfigReader
     /// </summary>
     /// <param name="config">Configuration parameters.</param>
     
-    public void configure(ConfigParams config)
-    {
+    public void configure(ConfigParams config) {
     	ConfigParams parameters = config.getSection("parameters");
-        if (parameters.size() > 0)
-        {
+        if (parameters.size() > 0) {
             _parameters = parameters;
         }
     }
@@ -36,7 +35,7 @@ public abstract class ConfigReader implements IConfigurable, IConfigReader
     /// <param name="correlationId">The correlation identifier.</param>
     /// <param name="parameters">The parameters.</param>
     
-    public abstract ConfigParams readConfig(String correlationId, ConfigParams parameters);
+    public abstract ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;
 
     /// <summary>
     /// Parameterizes the specified configuration.
@@ -44,12 +43,11 @@ public abstract class ConfigReader implements IConfigurable, IConfigReader
     /// <param name="config">The configuration.</param>
     /// <param name="parameters">The parameters.</param>
     
-    protected static String parameterize(String config, ConfigParams parameters) throws IOException
-    {
-        if (parameters == null)
-        {
+    protected static String parameterize(String config, ConfigParams parameters) throws IOException {
+        if (parameters == null) {
             return config;
         }
+        
         Handlebars handlebars = new Handlebars();
         Template template = handlebars.compileInline(config);
 

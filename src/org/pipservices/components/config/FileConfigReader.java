@@ -2,7 +2,7 @@ package org.pipservices.components.config;
 
 import org.pipservices.commons.config.*;
 
-public abstract class FileConfigReader extends CachedConfigReader implements IConfigurable {
+public abstract class FileConfigReader extends ConfigReader implements IConfigurable {
 	protected String _path;
 	
 	public FileConfigReader() {}

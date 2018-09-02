@@ -1,8 +1,8 @@
 package org.pipservices.components.config;
 
-import java.io.*;
+import java.nio.file.*;
 
-import org.pipservices.commons.config.ConfigParams;
+import org.pipservices.commons.config.*;
 import org.pipservices.commons.errors.*;
 
 import com.fasterxml.jackson.core.type.*;
@@ -19,13 +19,17 @@ public class YamlConfigReader extends FileConfigReader {
 		super(path);
 	}
 		
-    public Object readObject(String correlationId) throws ApplicationException {
+    public Object readObject(String correlationId, ConfigParams parameters) throws ApplicationException {
     	if (_path == null)
         	throw new ConfigException(correlationId, "NO_PATH", "Missing config file path");
     	
         try {
-            File file = new File(_path); 
-        	return yamlMapper.readValue(file, typeRef);
+            Path path = Paths.get(_path); 
+            
+            String yaml = new String(Files.readAllBytes(path));
+            yaml = parameterize(yaml, parameters);
+            
+            return yamlMapper.readValue(yaml, typeRef);
         } catch (Exception ex) {
         	throw new FileException(
     			correlationId, 
@@ -38,16 +42,16 @@ public class YamlConfigReader extends FileConfigReader {
     }
 
     @Override
-    public ConfigParams performReadConfig(String correlationId) throws ApplicationException {
-    	Object value = readObject(correlationId);
+    public ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException {
+    	Object value = readObject(correlationId, parameters);
     	return ConfigParams.fromValue(value);
     }
         
-    public static Object readObject(String correlationId, String path) throws ApplicationException {
-        return new YamlConfigReader(path).readObject(correlationId);
+    public static Object readObject(String correlationId, String path, ConfigParams parameters) throws ApplicationException {
+        return new YamlConfigReader(path).readObject(correlationId, parameters);
     }
 
-    public static ConfigParams readConfig(String correlationId, String path) throws ApplicationException {
-        return new YamlConfigReader(path).readConfig(correlationId);
+    public static ConfigParams readConfig(String correlationId, String path, ConfigParams parameters) throws ApplicationException {
+        return new YamlConfigReader(path).readConfig(correlationId, parameters);
     }
 }
