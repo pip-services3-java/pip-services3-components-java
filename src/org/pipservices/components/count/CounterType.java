@@ -1,9 +1,17 @@
 package org.pipservices.components.count;
 
+/**
+ * Types of counters that measure different types of metrics
+ */
 public class CounterType {
-    public final static int Interval = 0; 
-    public final static int LastValue = 1; 
-    public final static int Statistics = 2; 
-    public final static int Timestamp = 3; 
-    public final static int Increment = 4; 
+	/** Counters that measure execution time intervals */
+	public final static int Interval = 0;
+	/** Counters that keeps the latest measured value */
+	public final static int LastValue = 1;
+	/** Counters that measure min/average/max statistics */
+	public final static int Statistics = 2;
+	/** Counter that record timestamps */
+	public final static int Timestamp = 3;
+	/** Counter that increment counters */
+	public final static int Increment = 4;
 }

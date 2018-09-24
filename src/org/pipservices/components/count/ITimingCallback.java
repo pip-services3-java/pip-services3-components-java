@@ -1,13 +1,20 @@
 package org.pipservices.components.count;
 
+import org.pipservices.components.log.*;
+
 /**
- * Interface for Timing callbacks to record captured elapsed time
+ * Interface for a callback to end measurement of execution elapsed time.
+ * 
+ * @see Timing
  */
 public interface ITimingCallback {
 	/**
-	 * Recording calculated elapsed time 
-	 * @param name the name of the counter
-	 * @param elapsed time in milliseconds
+	 * Ends measurement of execution elapsed time and updates specified counter.
+	 * 
+	 * @param name    a counter name
+	 * @param elapsed execution elapsed time in milliseconds to update the counter.
+	 * 
+	 * @see Timing#endTiming()
 	 */
 	void endTiming(String name, float elapsed);
 }

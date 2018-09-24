@@ -3,34 +3,44 @@ package org.pipservices.components.connect;
 import java.util.*;
 
 import org.pipservices.commons.errors.*;
+import org.pipservices.components.auth.*;
 
 /**
- * Service discovery component used to register connections of the services
- * or to resolve connections to external services called by clients.
+ * Interface for discovery services which are used to store and resolve connection parameters
+ * to connect to external services.
+ * 
+ * @see ConnectionParams
+ * @see CredentialParams
  */
 public interface IDiscovery {
 	/**
-	 * Registers connection where API service binds to.
-	 * @param correlationId a unique transaction id to trace calls across components
-	 * @param key a key to identify the connection
-	 * @param connection the connection to be registered.
+	 * Registers connection parameters into the discovery service.
+	 *
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param key           a key to uniquely identify the connection parameters.
+	 * @param connection    a connection to be registered.
 	 * @throws ApplicationException when registration fails for whatever reasons
 	 */
 	void register(String correlationId, String key, ConnectionParams connection) throws ApplicationException;
-	
+
 	/**
-	 * Resolves one connection from the list of service connections.
-	 * @param correlationId a unique transaction id to trace calls across components
-	 * @param key a key locate a connection
+	 * Resolves a single connection parameters by its key.
+	 * 
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param key           a key to uniquely identify the connection.
 	 * @return a resolved connection.
 	 * @throws ApplicationException when resolution failed for whatever reasons.
 	 */
 	ConnectionParams resolveOne(String correlationId, String key) throws ApplicationException;
 
 	/**
-	 * Resolves a list of connections from to be called by a client.
-	 * @param correlationId a unique transaction id to trace calls across components
-	 * @param key a key locate connections
+	 * Resolves all connection parameters by their key.
+	 * 
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param key           a key to uniquely identify the connections.
 	 * @return a list with resolved connections.
 	 * @throws ApplicationException when resolution failed for whatever reasons.
 	 */

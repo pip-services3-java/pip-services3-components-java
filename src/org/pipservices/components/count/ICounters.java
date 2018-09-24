@@ -3,74 +3,72 @@ package org.pipservices.components.count;
 import java.time.*;
 
 /**
- * Interface for performance counters. 
- * These components are used to measure non-functional characteristics
- * of component execution: number of calls, execution time, timing of key events, etc.
+ * Interface for performance counters that measure execution metrics.
+ * 
+ * The performance counters measure how code is performing:
+ * how fast or slow, how many transactions performed, how many objects
+ * are stored, what was the latest transaction time and so on.
+ * 
+ * They are critical to monitor and improve performance, scalability
+ * and reliability of code in production. 
  */
 public interface ICounters {
 	/**
-	 * Starts measurement of execution time interval.
-	 * The method returns ITiming object that provides endTiming()
-	 * method that shall be called when execution is completed
-	 * to calculate elapsed time and update the counter.
-	 * @param name the name of interval counter.
-	 * @return callback interface with endTiming() method 
-	 * that shall be called at the end of execution.
+	 * Begins measurement of execution time interval. It returns Timing object which
+	 * has to be called at {@link Timing#endTiming()} to end the measurement and
+	 * update the counter.
+	 * 
+	 * @param name a counter name of Interval type.
+	 * @return a Timing callback object to end timing.
 	 */
 	Timing beginTiming(String name);
-	
+
 	/**
-	 * Calculates rolling statistics: minimum, maximum, average
-	 * and updates Statistics counter.
-	 * This counter can be used to measure various non-functional
-	 * characteristics, such as amount stored or transmitted data,
-	 * customer feedback, etc. 
-	 * @param name the name of statistics counter.
-	 * @param value the value to add to statistics calculations.
+	 * Calculates min/average/max statistics based on the current and previous
+	 * values.
+	 * 
+	 * @param name  a counter name of Statistics type
+	 * @param value a value to update statistics
 	 */
 	void stats(String name, float value);
-	
+
 	/**
-	 * Records the last reported value. 
-	 * This counter can be used to store performance values reported
-	 * by clients or current numeric characteristics such as number
-	 * of values stored in cache.
-	 * @param name the name of last value counter
-	 * @param value the value to be stored as the last one
+	 * Records the last calculated measurement value.
+	 * 
+	 * Usually this method is used by metrics calculated externally.
+	 * 
+	 * @param name  a counter name of Last type.
+	 * @param value a last value to record.
 	 */
 	void last(String name, float value);
-	
+
 	/**
-	 * Records the current time.
-	 * This counter can be used to track timing of key
-	 * business transactions.
-	 * @param name the name of timing counter
+	 * Records the current time as a timestamp.
+	 * 
+	 * @param name a counter name of Timestamp type.
 	 */
 	void timestampNow(String name);
-	
+
 	/**
-	 * Records specified time.
-	 * This counter can be used to tack timing of key
-	 * business transactions as reported by clients.
-	 * @param name the name of timing counter.
-	 * @param value the reported timing to be recorded.
+	 * Records the given timestamp.
+	 * 
+	 * @param name  a counter name of Timestamp type.
+	 * @param value a timestamp to record.
 	 */
 	void timestamp(String name, ZonedDateTime value);
-	
+
 	/**
-	 * Increments counter by value of 1.
-	 * This counter is often used to calculate
-	 * number of client calls or performed transactions.
-	 * @param name the name of counter counter.
+	 * Increments counter by 1.
+	 * 
+	 * @param name a counter name of Increment type.
 	 */
 	void incrementOne(String name);
-	
+
 	/**
-	 * Increments counter by specified value.
-	 * This counter can be used to track various
-	 * numeric characteristics
-	 * @param name the name of the increment value.
-	 * @param value number to increase the counter.
+	 * Increments counter by given value.
+	 * 
+	 * @param name  a counter name of Increment type.
+	 * @param value a value to add to the counter.
 	 */
 	void increment(String name, int value);
 }

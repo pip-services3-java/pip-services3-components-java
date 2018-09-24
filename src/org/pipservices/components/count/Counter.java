@@ -3,52 +3,114 @@ package org.pipservices.components.count;
 import java.time.*;
 import com.fasterxml.jackson.annotation.*;
 
+/**
+ * Data object to store measurement for a performance counter.
+ * This object is used by CachedCounters to store counters.
+ */
 public class Counter {
-    private String _name;
-    private int _type;
-    private Float _last;
-    private Integer _count;
-    private Float _min;
-    private Float _max;
-    private Float _average;
-    private ZonedDateTime _time;
+	/** The counter unique name */
+	private String _name;
+	/** The counter type that defines measurement algorithm */
+	private int _type;
+	/** The last recorded value */
+	private Float _last;
+	/** The total count */
+	private Integer _count;
+	/** The minimum value */
+	private Float _min;
+	/** The maximum value */
+	private Float _max;
+	/** The average value */
+	private Float _average;
+	/** The recorded timestamp */
+	private ZonedDateTime _time;
 
-    public Counter() {}
-    
-    public Counter(String name, int type) {
-        _name = name;
-        _type = type;
-    }
+	/**
+	 * Creates a instance of the data obejct
+	 */
+	public Counter() {
+	}
 
-    @JsonProperty("name")
-    public String getName() { return _name; }
-    public void setName(String name) { _name = name; }
+	/**
+	 * Creates a instance of the data obejct
+	 * 
+	 * @param name a counter name.
+	 * @param type a counter type.
+	 */
+	public Counter(String name, int type) {
+		_name = name;
+		_type = type;
+	}
 
-    @JsonProperty("type")
-    public int getType() { return _type; }
-    public void setType(int type) { _type = type; }
+	@JsonProperty("name")
+	public String getName() {
+		return _name;
+	}
 
-    @JsonProperty("last")
-    public Float getLast() { return _last; }
-    public void setLast(Float last) { _last = last; }
+	public void setName(String name) {
+		_name = name;
+	}
 
-    @JsonProperty("count")
-    public Integer getCount() { return _count; }
-    public void setCount(Integer count) { _count = count; }
+	@JsonProperty("type")
+	public int getType() {
+		return _type;
+	}
 
-    @JsonProperty("min")
-    public Float getMin() { return _min; }
-    public void setMin(Float min) { _min = min; }
+	public void setType(int type) {
+		_type = type;
+	}
 
-    @JsonProperty("max")
-    public Float getMax() { return _max; }
-    public void setMax(Float max) { _max = max; }
+	@JsonProperty("last")
+	public Float getLast() {
+		return _last;
+	}
 
-    @JsonProperty("average")
-    public Float getAverage() { return _average; }
-    public void setAverage(Float average) { _average = average; }
+	public void setLast(Float last) {
+		_last = last;
+	}
 
-    @JsonProperty("time")
-    public ZonedDateTime getTime() { return _time; }
-    public void setTime(ZonedDateTime time) { _time = time; }
+	@JsonProperty("count")
+	public Integer getCount() {
+		return _count;
+	}
+
+	public void setCount(Integer count) {
+		_count = count;
+	}
+
+	@JsonProperty("min")
+	public Float getMin() {
+		return _min;
+	}
+
+	public void setMin(Float min) {
+		_min = min;
+	}
+
+	@JsonProperty("max")
+	public Float getMax() {
+		return _max;
+	}
+
+	public void setMax(Float max) {
+		_max = max;
+	}
+
+	@JsonProperty("average")
+	public Float getAverage() {
+		return _average;
+	}
+
+	public void setAverage(Float average) {
+		_average = average;
+	}
+
+	@JsonProperty("time")
+	public ZonedDateTime getTime() {
+		return _time;
+	}
+
+	public void setTime(ZonedDateTime time) {
+		_time = time;
+	}
 }

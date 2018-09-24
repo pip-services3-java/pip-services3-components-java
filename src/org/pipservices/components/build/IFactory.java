@@ -1,21 +1,34 @@
 package org.pipservices.components.build;
 
 /**
- * Interface for component factories
+ * Interface for component factories.
+ * 
+ * Factories use locators to identify components to be created.
+ * 
+ * The locators are similar to those used to locate components in references.
+ * They can be of any type like strings or integers. However Pip.Services toolkit
+ * most often uses Descriptor objects as component locators.
  */
 public interface IFactory {
 	/**
-	 * Checks if factory is able to create requested component and returns its locator.
-	 * @param locator a locator for requested component
-	 * @return a locator of object to be created
+	 * Checks if this factory is able to create component by given locator.
+	 * 
+	 * This method searches for all registered components and returns
+	 * a locator for component it is able to create that matches the given locator.
+	 * If the factory is not able to create a requested component is returns null.
+	 * 
+	 * @param locator 	a locator to identify component to be created.
+	 * @return			a locator for a component that the factory is able to create.
 	 */
 	Object canCreate(Object locator);
 	
 	/**
-	 * Creates a component by requested locator
-	 * @param locator a requested components
-	 * @return an instance of created component
-	 * @throws CreateException when component creation fails 
+	 * Creates a component identified by given locator.
+	 * 
+	 * @param locator 	a locator to identify component to be created.
+	 * @return the created component.
+	 * 
+	 * @throws CreateException if the factory is not able to create the component.
 	 */
 	Object create(Object locator) throws CreateException;
 }

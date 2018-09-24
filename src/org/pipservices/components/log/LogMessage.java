@@ -6,12 +6,25 @@ import org.pipservices.commons.errors.*;
 
 import com.fasterxml.jackson.annotation.*;
 
+/**
+ * Data object to store captured log messages.
+ * This object is used by CachedLogger.
+ */
 public class LogMessage {
+	/** The time then message was generated */
 	private ZonedDateTime _time;
+	/** The source (context name) */
 	private String _source;
+	/** This log level */
 	private LogLevel _level;
+	/** The transaction id to trace execution through call chain. */
 	private String _correlationId;
+	/**
+	 * The description of the captured error
+	 * @see ErrorDescription
+	 */
 	private ErrorDescription _error;
+	/** The human-readable message */
 	private String _message;
 	
     public LogMessage() { }

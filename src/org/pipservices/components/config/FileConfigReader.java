@@ -2,19 +2,62 @@ package org.pipservices.components.config;
 
 import org.pipservices.commons.config.*;
 
+/**
+ * Abstract config reader that reads configuration from a file.
+ * Child classes add support for config files in their specific format
+ * like JSON, YAML or property files.
+ * 
+ * ### Configuration parameters ###
+ * 
+ * - path:          path to configuration file
+ * - parameters:            this entire section is used as template parameters
+ *   ...
+ * 
+ * @see IConfigReader
+ * @see ConfigReader
+ */
 public abstract class FileConfigReader extends ConfigReader implements IConfigurable {
 	protected String _path;
-	
-	public FileConfigReader() {}
-	
-    public FileConfigReader(String path) {
-        _path = path;
-    }
 
-    public String getPath() { return _path; }
-    public void setPath(String value) { _path = value; }
+	/**
+	 * Creates a new instance of the config reader.
+	 */
+	public FileConfigReader() {
+	}
 
-    public void configure(ConfigParams config) {
-        _path = config.getAsString("path");
-    }
+	/**
+	 * Creates a new instance of the config reader.
+	 * 
+	 * @param path (optional) a path to configuration file.
+	 */
+	public FileConfigReader(String path) {
+		_path = path;
+	}
+
+	/**
+	 * Get the path to configuration file..
+	 * 
+	 * @return the path to configuration file.
+	 */
+	public String getPath() {
+		return _path;
+	}
+
+	/**
+	 * Set the path to configuration file.
+	 * 
+	 * @param value a new path to configuration file.
+	 */
+	public void setPath(String value) {
+		_path = value;
+	}
+
+	/**
+	 * Configures component by passing configuration parameters.
+	 * 
+	 * @param config configuration parameters to be set.
+	 */
+	public void configure(ConfigParams config) {
+		_path = config.getAsString("path");
+	}
 }

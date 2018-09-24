@@ -1,0 +1,9 @@
+org.pipservices.components
+org.pipservices.components.auth
+org.pipservices.components.build
+org.pipservices.components.cache
+org.pipservices.components.config
+org.pipservices.components.connect
+org.pipservices.components.count
+org.pipservices.components.info
+org.pipservices.components.log

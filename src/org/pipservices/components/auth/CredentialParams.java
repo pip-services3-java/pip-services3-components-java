@@ -4,12 +4,46 @@ import java.util.*;
 
 import org.pipservices.commons.config.ConfigParams;
 import org.pipservices.commons.data.*;
+import org.pipservices.components.connect.*;
 
 /**
- * Credentials such as login and password, client id and key,
- * certificates, etc. Separating credentials from connection parameters
- * allow to store them in secure location and share among multiple
- * connections.
+ * Contains credentials to authenticate against external services.
+ * They are used together with connection parameters, but usually stored
+ * in a separate store, protected from unauthorized access.
+ * 
+ * ### Configuration parameters ###
+ * 
+ * store_key:     key to retrieve parameters from credential store
+ * username:      user name
+ * user:          alternative to username
+ * password:      user password
+ * pass:          alternative to password
+ * access_id:     application access id
+ * client_id:     alternative to access_id
+ * access_key:    application secret key
+ * client_key:    alternative to access_key
+ * secret_key:    alternative to access_key
+ * 
+ * In addition to standard parameters CredentialParams may contain any number of custom parameters
+ * <p> 
+ * ### Example ###
+ * <pre>
+ * {@code
+ * CredentialParams credential = CredentialParams.fromTuples(
+ *  "user", "jdoe",
+ *  "pass", "pass123",
+ *  "pin", "321"
+ * );
+ * 
+ * String username = credential.getUsername();             // Result: "jdoe"
+ * String password = credential.getPassword();             // Result: "pass123"
+ * int pin = credential.getAsNullableString("pin");     // Result: 321   
+ * }
+ * </pre>
+ * @see ConfigParams
+ * @see ConnectionParams
+ * @see CredentialResolver
+ * @see ICredentialStore
  */
 public class CredentialParams extends ConfigParams {
 	private static final long serialVersionUID = 4144579662501676747L;
@@ -17,78 +51,96 @@ public class CredentialParams extends ConfigParams {
 	/**
 	 * Creates an empty instance of credential parameters.
 	 */
-	public CredentialParams() { }
-	
+	public CredentialParams() {
+	}
+
 	/**
-	 * Create an instance of credentials from free-form configuration map.
-	 * @param map a map with the credentials. 
+	 * Creates a new ConfigParams and fills it with values.
+	 * 
+	 * @param map (optional) an object to be converted into key-value pairs to
+	 *            initialize these credentials.
 	 */
 	public CredentialParams(Map<?, ?> map) {
 		super(map);
 	}
 
 	/**
-	 * Checks if credential lookup shall be performed.
-	 * The credentials are requested when 'store_key' parameter contains 
-	 * a non-empty string that represents the name in credential store.
-	 * @return <b>true</b> if the credentials shall be resolved by credential store 
-	 * and <b>false</b> when all credential parameters are defined statically.
+	 * Checks if these credential parameters shall be retrieved from
+	 * CredentialStore. The credential parameters are redirected to CredentialStore
+	 * when store_key parameter is set.
+	 * 
+	 * @return true if credentials shall be retrieved from CredentialStore
+	 * 
+	 * @see #getStoreKey()
 	 */
 	public boolean useCredentialStore() {
 		return containsKey("store_key");
 	}
-	
+
 	/**
-	 * Gets a key under which the connection shall be looked up in credential store. 
-	 * @return a credential key
+	 * Gets the key to retrieve these credentials from CredentialStore. If this key
+	 * is null, than all parameters are already present.
+	 * 
+	 * @return the store key to retrieve credentials.
+	 * 
+	 * @see #useCredentialStore()
 	 */
 	public String getStoreKey() {
 		return getAsNullableString("store_key");
 	}
 
 	/**
-	 * Sets the key under which the credentials shall be looked up in credential store
-	 * @param value a new credential key
+	 * Sets the key to retrieve these parameters from CredentialStore.
+	 * 
+	 * @param value a new key to retrieve credentials.
 	 */
 	public void setStoreKey(String value) {
 		put("store_key", value);
 	}
-	
+
 	/**
-	 * Gets the user name / login.
-	 * @return the user name 
+	 * Gets the user name. The value can be stored in parameters "username" or
+	 * "user".
+	 * 
+	 * @return the user name.
 	 */
 	public String getUsername() {
 		return getAsNullableString("username");
 	}
 
 	/**
-	 * Sets the service user name.
-	 * @param value the user name 
+	 * Sets the user name.
+	 * 
+	 * @param value a new user name.
 	 */
 	public void setUsername(String value) {
 		put("username", value);
 	}
 
 	/**
-	 * Gets the service user password.
-	 * @return the user password 
+	 * Get the user password. The value can be stored in parameters "password" or
+	 * "pass".
+	 * 
+	 * @return the user password.
 	 */
 	public String getPassword() {
 		return getAsNullableString("password");
 	}
 
 	/**
-	 * Sets the service user password.
-	 * @param the user password 
+	 * Sets the user password.
+	 * 
+	 * @param password a new user password.
 	 */
 	public void setPassword(String password) {
 		put("password", password);
 	}
-	
+
 	/**
-	 * Gets the client or access id
-	 * @return the client or access id
+	 * Gets the application access id. The value can be stored in parameters
+	 * "access_id" pr "client_id"
+	 * 
+	 * @return the application access id.
 	 */
 	public String getAccessId() {
 		String accessId = getAsNullableString("access_id");
@@ -97,16 +149,19 @@ public class CredentialParams extends ConfigParams {
 	}
 
 	/**
-	 * Sets a new client or access id
-	 * @param value the client or access id
+	 * Sets the application access id.
+	 * 
+	 * @param value a new application access id.
 	 */
 	public void setAccessId(String value) {
 		put("access_id", value);
 	}
 
 	/**
-	 * Gets the client or access key
-	 * @return the client or access key
+	 * Gets the application secret key. The value can be stored in parameters
+	 * "access_key", "client_key" or "secret_key".
+	 * 
+	 * @return the application secret key.
 	 */
 	public String getAccessKey() {
 		String accessKey = getAsNullableString("access_key");
@@ -115,56 +170,107 @@ public class CredentialParams extends ConfigParams {
 	}
 
 	/**
-	 * Sets a new client or access key
-	 * @param value the client or access id
+	 * Sets the application secret key.
+	 * 
+	 * @param value a new application secret key.
 	 */
 	public void setAccessKey(String value) {
 		put("access_key", value);
 	}
-	
+
+	/**
+	 * Creates a new CredentialParams object filled with key-value pairs serialized
+	 * as a string.
+	 * 
+	 * @param line a string with serialized key-value pairs as
+	 *             "key1=value1;key2=value2;..." Example:
+	 *             "Key1=123;Key2=ABC;Key3=2016-09-16T00:00:00.00Z"
+	 * @return a new CredentialParams object.
+	 */
 	public static CredentialParams fromString(String line) {
 		StringValueMap map = StringValueMap.fromString(line);
 		return new CredentialParams(map);
 	}
 
-    public static List<CredentialParams> manyFromConfig(ConfigParams config, boolean configAsDefault) {
-        List<CredentialParams> result = new ArrayList<CredentialParams>();
+	/**
+	 * Retrieves all CredentialParams from configuration parameters from
+	 * "credentials" section. If "credential" section is present instead, than it
+	 * returns a list with only one CredentialParams.
+	 * 
+	 * @param config          a configuration parameters to retrieve credentials
+	 * @param configAsDefault boolean parameter for default configuration. If "true"
+	 *                        the default value will be added to the result.
+	 * @return a list of retrieved CredentialParams
+	 */
+	public static List<CredentialParams> manyFromConfig(ConfigParams config, boolean configAsDefault) {
+		List<CredentialParams> result = new ArrayList<CredentialParams>();
 
-        // Try to get multiple credentials first
-        ConfigParams credentials = config.getSection("credentials");
+		// Try to get multiple credentials first
+		ConfigParams credentials = config.getSection("credentials");
 
-        if (credentials.size() > 0) {
-            List<String> sectionsNames = credentials.getSectionNames();
+		if (credentials.size() > 0) {
+			List<String> sectionsNames = credentials.getSectionNames();
 
-            for (String section : sectionsNames) {
-                ConfigParams credential = credentials.getSection(section);
-                result.add(new CredentialParams(credential));
-            }
-        }
-        // Then try to get a single connection
-        else {
-            ConfigParams credential = config.getSection("credential");
-            if (credential.size() > 0)
-                result.add(new CredentialParams(credential));
-            // Apply defaults
-            else if (configAsDefault)
-                result.add(new CredentialParams(config));
-        }
+			for (String section : sectionsNames) {
+				ConfigParams credential = credentials.getSection(section);
+				result.add(new CredentialParams(credential));
+			}
+		}
+		// Then try to get a single connection
+		else {
+			ConfigParams credential = config.getSection("credential");
+			if (credential.size() > 0)
+				result.add(new CredentialParams(credential));
+			// Apply defaults
+			else if (configAsDefault)
+				result.add(new CredentialParams(config));
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public static List<CredentialParams> manyFromConfig(ConfigParams config) {
-    	return manyFromConfig(config, true);
-    }
+	/**
+	 * Retrieves all CredentialParams from configuration parameters from
+	 * "credentials" section. If "credential" section is present instead, than it
+	 * returns a list with only one CredentialParams.
+	 * 
+	 * @param config a configuration parameters to retrieve credentials
+	 * @return a list of retrieved CredentialParams
+	 */
+	public static List<CredentialParams> manyFromConfig(ConfigParams config) {
+		return manyFromConfig(config, true);
+	}
 
-    public static CredentialParams fromConfig(ConfigParams config, boolean configAsDefault) {
-        List<CredentialParams> connections = manyFromConfig(config, configAsDefault);
-        return connections.size() > 0 ? connections.get(0) : null;
-    }
+	/**
+	 * Retrieves a single CredentialParams from configuration parameters from
+	 * "credential" section. If "credentials" section is present instead, then is
+	 * returns only the first credential element.
+	 * 
+	 * @param config          ConfigParams, containing a section named
+	 *                        "credential(s)".
+	 * @param configAsDefault boolean parameter for default configuration. If "true"
+	 *                        the default value will be added to the result.
+	 * @return the generated CredentialParams object.
+	 * 
+	 * @see #manyFromConfig(ConfigParams, boolean)
+	 */
+	public static CredentialParams fromConfig(ConfigParams config, boolean configAsDefault) {
+		List<CredentialParams> connections = manyFromConfig(config, configAsDefault);
+		return connections.size() > 0 ? connections.get(0) : null;
+	}
 
-    public static CredentialParams fromConfig(ConfigParams config) {
-    	return fromConfig(config, true);
-    }
+	/**
+	 * Retrieves a single CredentialParams from configuration parameters from
+	 * "credential" section. If "credentials" section is present instead, then is
+	 * returns only the first credential element.
+	 * 
+	 * @param config ConfigParams, containing a section named "credential(s)".
+	 * @return the generated CredentialParams object.
+	 * 
+	 * @see manyFromConfig
+	 */
+	public static CredentialParams fromConfig(ConfigParams config) {
+		return fromConfig(config, true);
+	}
 
 }

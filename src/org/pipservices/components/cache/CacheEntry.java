@@ -1,7 +1,7 @@
 package org.pipservices.components.cache;
 
 /**
- * Holds cached value for in-memory cache.
+ * Data object to store cached values with their keys used by MemoryCache
  */
 public class CacheEntry {
 	private long _expiration;
@@ -9,54 +9,60 @@ public class CacheEntry {
 	private Object _value;
 
 	/**
-	 * Creates instance of the cache entry.
-	 * @param key the unique key used to identify and locate the value.
-	 * @param value the cached value.
-	 * @param timeout time to live for the object in milliseconds
+	 * Creates a new instance of the cache entry and assigns its values.
+	 * 
+	 * @param key     a unique key to locate the value.
+	 * @param value   a value to be stored.
+	 * @param timeout expiration timeout in milliseconds.
 	 */
 	public CacheEntry(String key, Object value, long timeout) {
 		_key = key;
 		_value = value;
-		_expiration = System.currentTimeMillis() + timeout; 
+		_expiration = System.currentTimeMillis() + timeout;
 	}
-	
+
 	/**
-	 * Gets the unique key to identify and locate the value.
+	 * Gets the key to locate the cached value.
+	 * 
 	 * @return the value key.
 	 */
-	public String getKey() { 
-		return _key; 
+	public String getKey() {
+		return _key;
 	}
 
 	/**
 	 * Gets the cached value.
-	 * @return the currently cached value.
+	 * 
+	 * @return the value object.
 	 */
 	public Object getValue() {
 		return _value;
 	}
-	
+
 	/**
-	 * Changes the cached value and updates creation time.
-	 * @param value the new cached value.
-	 * @param timeout time to live for the object in milliseconds
+	 * Sets a new value and extends its expiration.
+	 * 
+	 * @param value   a new cached value.
+	 * @param timeout a expiration timeout in milliseconds.
 	 */
 	public void setValue(Object value, long timeout) {
 		_value = value;
-		_expiration = System.currentTimeMillis() + timeout; 
+		_expiration = System.currentTimeMillis() + timeout;
 	}
 
 	/**
-	 * Gets the expiration time in milliseconds
-	 * @return system milliseconds when object expires
+	 * Gets the expiration timeout.
+	 * 
+	 * @return the expiration timeout in milliseconds.
 	 */
 	public long getExpiration() {
 		return _expiration;
 	}
-	
+
 	/**
-	 * Checks if the object expired
-	 * @return <code>true</code> if object expired
+	 * Checks if this value already expired.
+	 * 
+	 * @return true if the value already expires and false otherwise.
 	 */
 	public boolean isExpired() {
 		return _expiration < System.currentTimeMillis();

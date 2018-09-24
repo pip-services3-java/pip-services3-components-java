@@ -3,60 +3,104 @@ package org.pipservices.components.log;
 import java.time.*;
 import java.time.format.*;
 
+/**
+ * Logger that writes log messages to console.
+ * 
+ * Errors are written to standard err stream
+ * and all other messages to standard out stream.
+ * 
+ * ### Configuration parameters ###
+ * 
+ * level:             maximum log level to capture
+ * source:            source (context) name
+ * 
+ * ### References ###
+ * 
+ * - *:context-info:*:*:1.0     (optional) ContextInfo to detect the context id and specify counters source
+ * <p>
+ * ### Example ###
+ * <pre>
+ * {@code
+ * ConsoleLogger logger = new ConsoleLogger();
+ * logger.setLevel(LogLevel.debug);
+ * 
+ * logger.error("123", ex, "Error occured: %s", ex.message);
+ * logger.debug("123", "Everything is OK.");
+ * }
+ * </pre>
+ * @see Logger
+ */
 public class ConsoleLogger extends Logger {
 
-	public ConsoleLogger() {}
+	/**
+	 * Creates a new instance of the logger.
+	 */
+	public ConsoleLogger() {
+		super();
+	}
 
-    protected String composeError(Exception error) {
-        StringBuilder builder = new StringBuilder();
+	/**
+	 * Composes an human-readable error description
+	 * 
+	 * @param error an error to format.
+	 * @return a human-reable error description.
+	 */
+	protected String composeError(Exception error) {
+		StringBuilder builder = new StringBuilder();
 
-        Throwable t = error;
-        while (t != null) {
-            if (builder.length() > 0)
-                builder.append(" Caused by error: ");
+		Throwable t = error;
+		while (t != null) {
+			if (builder.length() > 0)
+				builder.append(" Caused by error: ");
 
-            builder.append(t.getMessage())
-            	.append(" StackTrace: ")
-            	.append(t.getStackTrace());
+			builder.append(t.getMessage()).append(" StackTrace: ").append(t.getStackTrace());
 
-            t = t.getCause();
-        }
+			t = t.getCause();
+		}
 
-        return builder.toString();
-    }
-    
-    @Override
-    protected void write(LogLevel level, String correlationId, Exception error, String message) {
-        if (LogLevelConverter.toInteger(this.getLevel()) < LogLevelConverter.toInteger(level)) return;
+		return builder.toString();
+	}
 
-        StringBuilder build = new StringBuilder();
-        
-        build.append('[');
-        build.append(correlationId != null ? correlationId : "---");
-        build.append(':');
-        build.append(LogLevelConverter.toString(level));
-        build.append(':');
-        build.append(ZonedDateTime.now(ZoneId.of("Z")).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        build.append("] ");
+	/**
+	 * Writes a log message to the logger destination.
+	 * 
+	 * @param level         a log level.
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param error         an error object associated with this message.
+	 * @param message       a human-readable message to log.
+	 */
+	@Override
+	protected void write(LogLevel level, String correlationId, Exception error, String message) {
+		if (LogLevelConverter.toInteger(this.getLevel()) < LogLevelConverter.toInteger(level))
+			return;
 
-        build.append(message);
+		StringBuilder build = new StringBuilder();
 
-        if (error != null) {
-            if (message.length() == 0)
-                build.append("Error: ");
-            else
-                build.append(": ");
+		build.append('[');
+		build.append(correlationId != null ? correlationId : "---");
+		build.append(':');
+		build.append(LogLevelConverter.toString(level));
+		build.append(':');
+		build.append(ZonedDateTime.now(ZoneId.of("Z")).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+		build.append("] ");
 
-            build.append(composeError(error));
-        }
+		build.append(message);
 
-        String output = build.toString();
+		if (error != null) {
+			if (message.length() == 0)
+				build.append("Error: ");
+			else
+				build.append(": ");
 
-        if (level == LogLevel.Fatal 
-    		|| level == LogLevel.Error 
-    		|| level == LogLevel.Warn)
-            System.err.println(output);
-        else
-            System.out.println(output);
-    }                
+			build.append(composeError(error));
+		}
+
+		String output = build.toString();
+
+		if (level == LogLevel.Fatal || level == LogLevel.Error || level == LogLevel.Warn)
+			System.err.println(output);
+		else
+			System.out.println(output);
+	}
 }

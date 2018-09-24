@@ -1,22 +1,31 @@
 package org.pipservices.components.auth;
 
+import org.pipservices.components.connect.*;
 /**
- * Store that keeps and located client credentials.
+ * Interface for credential stores which are used to store and lookup credentials
+ * to authenticate against external services.
+ * 
+ * @see CredentialParams
+ * @see ConnectionParams
  */
 public interface ICredentialStore {
 	/**
-	 * Stores credential in the store
-	 * @param correlationId a unique transaction id to trace calls across components
-	 * @param key the key to lookup credential
-	 * @param credential a credential parameters
+	 * Stores credential parameters into the store.
+	 *
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param key           a key to uniquely identify the credential.
+	 * @param credential    a credential to be stored.
 	 */
 	void store(String correlationId, String key, CredentialParams credential);
-	
+
 	/**
-	 * Looks up credential from the store
-	 * @param correlationId a unique transaction id to trace calls across components
-	 * @param key a key to lookup credential
-	 * @return found credential parameters or <code>null</code> if nothing was found
+	 * Lookups credential parameters by its key.
+	 * 
+	 * @param correlationId (optional) transaction id to trace execution through
+	 *                      call chain.
+	 * @param key           a key to uniquely identify the credential.
+	 * @return found credential parameters or null if nothing was found
 	 */
 	CredentialParams lookup(String correlationId, String key);
 }
