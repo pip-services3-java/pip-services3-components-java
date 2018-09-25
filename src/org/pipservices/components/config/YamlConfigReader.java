@@ -91,7 +91,7 @@ public class YamlConfigReader extends FileConfigReader {
 	 *                      call chain.
 	 * @param parameters    values to parameters the configuration or null to skip
 	 *                      parameterization.
-	 * @return receives ConfigParams configuration.
+	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
 	@Override
@@ -125,7 +125,7 @@ public class YamlConfigReader extends FileConfigReader {
 	 * @param path          a path to configuration file.
 	 * @param parameters    values to parameters the configuration or null to skip
 	 *                      parameterization.
-	 * @return receives ConfigParams configuration.
+	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
 	public static ConfigParams readConfig(String correlationId, String path, ConfigParams parameters)

@@ -64,7 +64,7 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
      * 
      * @param correlationId     (optional) transaction id to trace execution through call chain.
      * @param parameters        values to parameters the configuration or null to skip parameterization.
-     * @return receives ConfigParams configuration.
+     * @return ConfigParams configuration.
      */
     public ConfigParams readConfig(String correlationId, ConfigParams parameters) {
         return new ConfigParams(_config);

@@ -19,7 +19,7 @@ public interface IConfigReader {
 	 *                      call chain.
 	 * @param parameters    values to parameters the configuration or null to skip
 	 *                      parameterization.
-	 * @return receives ConfigParams configuration.
+	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
 	ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;

@@ -93,7 +93,7 @@ public class JsonConfigReader extends FileConfigReader {
 	 * @param correlationId (optional) transaction id to trace execution through
 	 *                      call chain.
 	 * @param parameters    values to parameters the configuration
-	 * @return receives ConfigParams configuration.
+	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
 	@Override
