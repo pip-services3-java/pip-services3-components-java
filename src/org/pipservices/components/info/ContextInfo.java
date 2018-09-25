@@ -1,11 +1,9 @@
 package org.pipservices.components.info;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.List;
+import java.time.*;
 
 import org.pipservices.commons.config.*;
-import org.pipservices.commons.data.StringValueMap;
+import org.pipservices.commons.data.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -40,14 +38,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * </pre>
  */
 public final class ContextInfo implements IReconfigurable {
-
 	private String _name = "unknown";
 	private StringValueMap _properties = new StringValueMap();
 	private String _description;
 	private String contextId;
 	private ZonedDateTime startTime = ZonedDateTime.now(ZoneId.of("UTC"));
 	private long uptime;
-	private List<String> components;
 
 	/**
 	 * Creates a new instance of this context info.
@@ -195,25 +191,6 @@ public final class ContextInfo implements IReconfigurable {
 	 */
 	public void setProperties(StringValueMap _properties) {
 		this._properties = _properties;
-	}
-
-	/**
-	 * Gets a list of context components.
-	 * 
-	 * @return context components.
-	 */
-	@JsonProperty("components")
-	public List<String> getComponents() {
-		return components;
-	}
-
-	/**
-	 * Sets context components.
-	 * 
-	 * @param components a new list of context components.
-	 */
-	public void setComponents(List<String> components) {
-		this.components = components;
 	}
 
 	/**
