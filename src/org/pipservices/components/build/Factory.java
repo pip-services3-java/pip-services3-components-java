@@ -15,11 +15,11 @@ import org.pipservices.commons.refer.*;
  * 
  * factory.registerAsType(
  * 		new Descriptor("mygroup", "mycomponent1", "default", "*", "1.0"),
- * 		MyComponent1
+ * 		MyComponent1.class
  * );
  * factory.register(
  * 		new Descriptor("mygroup", "mycomponent2", "default", "*", "1.0"),
- * 		(locator) => {
+ * 		(locator) -> {
  * 			return new MyComponent2();
  * 		}
  * );

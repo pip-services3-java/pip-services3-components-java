@@ -41,9 +41,7 @@ import org.pipservices.commons.refer.*;
  * credentialResolver.configure(config);
  * credentialResolver.setReferences(references);
  * 
- * credentialResolver.lookup("123", (err, credential) => {
- *      // Now use credential...
- * });
+ * credentialResolver.lookup("123");
  * }
  * </pre>
  * @see CredentialParams
@@ -156,7 +154,7 @@ public class CredentialResolver implements IConfigurable, IReferenceable {
 
 	/**
 	 * Looks up component credential parameters. If credentials are configured to be
-	 * retrieved from Credential store it finds a [[ICredentialStore]] and lookups
+	 * retrieved from Credential store it finds a ICredentialStore and lookups
 	 * credentials there.
 	 * 
 	 * @param correlationId (optional) transaction id to trace execution through

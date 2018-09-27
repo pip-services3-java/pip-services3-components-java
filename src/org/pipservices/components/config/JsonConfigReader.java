@@ -32,9 +32,7 @@ import com.fasterxml.jackson.databind.*;
  * JsonConfigReader configReader = new JsonConfigReader("config.json");
  * 
  * ConfigParams parameters = ConfigParams.fromTuples("KEY1_VALUE", 123, "KEY2_VALUE", "ABC");
- * configReader.readConfig("123", parameters, (err, config) => {
- *      // Result: key1=123;key2=ABC
- * });
+ * configReader.readConfig("123", parameters);
  * }
  * </pre>
  * @see IConfigReader
@@ -126,7 +124,7 @@ public class JsonConfigReader extends FileConfigReader {
 	 *                      call chain.
 	 * @param path          a path to configuration file.
 	 * @param parameters    values to parameters the configuration.
-	 * @return a JSON object with configuration.
+	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
 	public static ConfigParams readConfig(String correlationId, String path, ConfigParams parameters)

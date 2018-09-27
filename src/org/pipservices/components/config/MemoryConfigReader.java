@@ -7,7 +7,7 @@ import org.pipservices.commons.errors.ApplicationException;
  * Config reader that stores configuration in memory.
  * 
  * The reader supports parameterization using Handlebars
- * template engine: [[https://handlebarsjs.com]]
+ * template engine.
  * 
  * ### Configuration parameters ###
  * 
@@ -26,9 +26,7 @@ import org.pipservices.commons.errors.ApplicationException;
  * 
  * ConfigParams parameters = ConfigParams.fromValue(process.env);
  * 
- * configReader.readConfig("123", parameters, (err, config) => {
- *      // Possible result: connection.host=10.1.1.100;connection.port=8080
- * });
+ * configReader.readConfig("123", parameters);
  * }
  * </pre>
  * @see IConfigReader

@@ -7,7 +7,7 @@ package org.pipservices.components.count;
  * ### Example ###
  * <pre>
  * {@code
- * let timing = counters.beginTiming("mymethod.exec_time");
+ * Timing timing = counters.beginTiming("mymethod.exec_time");
  * try {
  *     ...
  * } finally {

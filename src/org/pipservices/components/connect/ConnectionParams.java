@@ -88,7 +88,7 @@ public class ConnectionParams extends ConfigParams {
 	}
 
 	/**
-	 * Sets the key to retrieve these parameters from [[DiscoveryService]].
+	 * Sets the key to retrieve these parameters from DiscoveryService.
 	 * 
 	 * @param value a new key to retrieve connection.
 	 */

@@ -16,7 +16,7 @@ import org.pipservices.commons.refer.*;
  * ### Configuration parameters ###
  * 
  * connection:    
- *   discovery_key:               (optional) a key to retrieve the connection from [[IDiscovery]]
+ *   discovery_key:               (optional) a key to retrieve the connection from IDiscovery
  *   ...                          other connection parameters
  * 
  * connections:                   alternative to connection
@@ -41,9 +41,7 @@ import org.pipservices.commons.refer.*;
  * connectionResolver.configure(config);
  * connectionResolver.setReferences(references);
  * 
- * connectionResolver.resolve("123", (err, connection) => {
- *      // Now use connection...
- * });
+ * connectionResolver.resolve("123");
  * }
  * </pre>
  * @see ConnectionParams

@@ -27,9 +27,7 @@ import org.pipservices.commons.config.*;
  * MemoryCredentialStore credentialStore = new MemoryCredentialStore();
  * credentialStore.readCredentials(config);
  * 
- * credentialStore.lookup("123", "key1", (err, credential) => {
- *      // Result: user=jdoe;pass=pass123
- * });
+ * credentialStore.lookup("123", "key1");
  * }
  * </pre>
  * @see ICredentialStore
@@ -64,6 +62,12 @@ public class MemoryCredentialStore implements ICredentialStore, IReconfigurable 
 		readCredentials(config);
 	}
 
+	/**
+     * Reads credentials from configuration parameters.
+     * Each section represents an individual CredentialParams
+     * 
+     * @param credentials   configuration parameters to be read
+     */
 	public void readCredentials(ConfigParams credentials) {
 		synchronized (_lock) {
 			_items.clear();

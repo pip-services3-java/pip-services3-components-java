@@ -27,9 +27,7 @@ import org.pipservices.commons.config.*;
  * MemoryDiscovery discovery = new MemoryDiscovery();
  * discovery.readConnections(config);
  * 
- * discovery.resolve("123", "key1", (err, connection) => {
- *      // Result: host=10.1.1.100;port=8080
- * });
+ * discovery.resolve("123", "key1");
  * }
  * </pre>
  * @see IDiscovery

@@ -12,7 +12,7 @@ import org.pipservices.commons.refer.*;
  * 
  * ### References ###
  * 
- * - *:counters:*:*:1.0         (optional) [[ICounters]] components to pass collected measurements
+ * - *:counters:*:*:1.0         (optional) ICounters components to pass collected measurements
  * <p>
  * ### Example ###
  * <pre>

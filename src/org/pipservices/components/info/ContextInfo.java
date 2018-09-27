@@ -30,10 +30,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 		"description", "My first microservice"
  * ));
  * 
- * context.name;			// Result: "MyMicroservice"
- * context.contextId;		// Possible result: "mylaptop"
- * context.startTime;		// Possible result: 2018-01-01:22:12:23.45Z
- * context.uptime;			// Possible result: 3454345
+ * context.getName();			// Result: "MyMicroservice"
+ * context.getContextId();		// Possible result: "mylaptop"
+ * context.getStartTime();		// Possible result: 2018-01-01:22:12:23.45Z
+ * context.getUptime();			// Possible result: 3454345
  * }
  * </pre>
  */

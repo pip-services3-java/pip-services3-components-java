@@ -31,9 +31,7 @@ import com.fasterxml.jackson.dataformat.yaml.*;
  * YamlConfigReader configReader = new YamlConfigReader("config.yml");
  * 
  * ConfigParams parameters = ConfigParams.fromTuples("KEY1_VALUE", 123, "KEY2_VALUE", "ABC");
- * configReader.readConfig("123", parameters, (err, config) => {
- *      // Result: key1=123;key2=ABC
- * });
+ * configReader.readConfig("123", parameters);
  * }
  * </pre>
  */

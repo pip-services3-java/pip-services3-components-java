@@ -22,11 +22,7 @@ import org.pipservices.commons.run.*;
  * {@code
  * MemoryCache cache = new MemoryCache();
  * 
- * cache.store("123", "key1", "ABC", (err) => {
- *      cache.store("123", "key1", (err, value) => {
- *          // Result: "ABC"
- *      });
- * });
+ * cache.store("123", "key1", "ABC", 0);
  * }
  * </pre>
  * @see ICache
