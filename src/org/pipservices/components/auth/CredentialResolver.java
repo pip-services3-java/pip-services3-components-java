@@ -8,26 +8,31 @@ import org.pipservices.commons.refer.*;
 
 /**
  * Helper class to retrieve component credentials.
- * 
+ * <p>
  * If credentials are configured to be retrieved from ICredentialStore,
- * it automatically locates ICredentialStore in component references
- * and retrieve credentials from there using store_key parameter.
- * 
+ * it automatically locates {@link ICredentialStore} in component references
+ * and retrieve credentials from there using <code>store_key</code> parameter.
+ * <p>
  * ### Configuration parameters ###
- * 
- * credential:    
- *   store_key:                   (optional) a key to retrieve the credentials from [[ICredentialStore]]
- *   ...                          other credential parameters
- * 
- * credentials:                   alternative to credential
- *   [credential params 1]:       first credential parameters
- *     ...
- *   [credential params N]:       Nth credential parameters
- *     ...
- * 
+ * <ul>
+ * <li>credential:    
+ *   <ul>
+ *   <li>store_key:                   (optional) a key to retrieve the credentials from {@link ICredentialStore}
+ *   <li>...                          other credential parameters
+ *   </ul>
+ * <li>credentials:                   alternative to credential
+ *   <ul>
+ *   <li>[credential params 1]:       first credential parameters
+ *   <li> ...
+ *   <li>[credential params N]:       Nth credential parameters
+ *   <li> ...
+ *   </ul>
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:credential-store:*:*:1.0     (optional) Credential stores to resolve credentials
+ * <ul>
+ * <li>*:credential-store:*:*:1.0     (optional) Credential stores to resolve credentials
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

@@ -8,17 +8,21 @@ import org.pipservices.commons.refer.*;
 
 /**
  * Performance counters that periodically dumps counters measurements to logger.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * options:
- *   interval:        interval in milliseconds to save current counters measurements (default: 5 mins)
- *   reset_timeout:   timeout in milliseconds to reset the counters. 0 disables the reset (default: 0)
- * 
+ * <ul>
+ * <li>options:
+ * <ul>
+ *   <li>interval:        interval in milliseconds to save current counters measurements (default: 5 mins)
+ *   <li>reset_timeout:   timeout in milliseconds to reset the counters. 0 disables the reset (default: 0)
+ * </ul>
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:logger:*:*:1.0           [[ILogger]] components to dump the captured counters
- * - *:context-info:*:*:1.0     (optional) [[ContextInfo]] to detect the context id and specify counters source
+ * <ul>
+ * <li>*:logger:*:*:1.0           {@link org.pipservices.components.log.ILogger} components to dump the captured counters
+ * <li>*:context-info:*:*:1.0     (optional) {@link org.pipservices.components.info.ContextInfo} to detect the context id and specify counters source
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

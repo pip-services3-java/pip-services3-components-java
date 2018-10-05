@@ -6,12 +6,13 @@ import org.pipservices.commons.config.*;
  * Abstract config reader that reads configuration from a file.
  * Child classes add support for config files in their specific format
  * like JSON, YAML or property files.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * - path:          path to configuration file
- * - parameters:            this entire section is used as template parameters
- *   ...
+ * <ul>
+ * <li>path:          path to configuration file
+ * <li>parameters:            this entire section is used as template parameters
+ * <li>...
+ * </ul>
  * 
  * @see IConfigReader
  * @see ConfigReader

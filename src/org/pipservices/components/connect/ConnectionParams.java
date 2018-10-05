@@ -10,15 +10,16 @@ import org.pipservices.components.auth.*;
  * Contains connection parameters to connect to external services.
  * They are used together with credential parameters, but usually stored
  * separately from more protected sensitive values.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * discovery_key: key to retrieve parameters from discovery service
- * protocol:      connection protocol like http, https, tcp, udp
- * host:          host name or IP address
- * port:          port number
- * uri:           resource URI or connection string with all parameters in it
- * 
+ * <ul>
+ * <li>discovery_key: key to retrieve parameters from discovery service
+ * <li>protocol:      connection protocol like http, https, tcp, udp
+ * <li>host:          host name or IP address
+ * <li>port:          port number
+ * <li>uri:           resource URI or connection string with all parameters in it
+ * </ul>
+ * <p>
  * In addition to standard parameters ConnectionParams may contain any number of custom parameters
  * <p>
  * ### Example ###
@@ -38,7 +39,7 @@ import org.pipservices.components.auth.*;
  * String cluster = connection.getAsNullableString("cluster");     // Result: "mycluster"  
  * }
  * </pre>
- * @see ConfigParams
+ * @see org.pipservices.commons.config.ConfigParams
  * @see CredentialParams
  * @see ConnectionResolver
  * @see IDiscovery 

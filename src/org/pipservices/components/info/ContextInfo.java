@@ -10,16 +10,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Context information component that provides detail information
  * about execution context: container or/and process.
- * 
+ * <p>
  * Most often ContextInfo is used by logging and performance counters
  * to identify source of the collected logs and metrics.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * name: 					the context (container or process) name
- * description: 		   	human-readable description of the context
- * properties: 			entire section of additional descriptive properties
- * 	 ...
+ * <ul>
+ * <li>name: 					the context (container or process) name
+ * <li>description: 		   	human-readable description of the context
+ * <li>properties: 			entire section of additional descriptive properties
+ * <li>...
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

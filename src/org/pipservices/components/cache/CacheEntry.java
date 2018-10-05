@@ -1,7 +1,7 @@
 package org.pipservices.components.cache;
 
 /**
- * Data object to store cached values with their keys used by MemoryCache
+ * Data object to store cached values with their keys used by {@link MemoryCache}
  */
 public class CacheEntry {
 	private long _expiration;

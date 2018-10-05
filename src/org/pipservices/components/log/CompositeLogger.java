@@ -6,12 +6,13 @@ import org.pipservices.commons.refer.*;
 
 /**
  * Aggregates all loggers from component references under a single component.
- * 
+ * <p>
  * It allows to log messages and conveniently send them to multiple destinations. 
- * 
+ * <p>
  * ### References ###
- * 
- * - *:logger:*:*:1.0         (optional) ILogger components to pass log messages
+ * <ul>
+ * <li>*:logger:*:*:1.0         (optional) {@link ILogger} components to pass log messages
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

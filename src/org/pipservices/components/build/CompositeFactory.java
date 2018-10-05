@@ -6,7 +6,7 @@ import java.util.*;
  * Aggregates multiple factories into a single factory component.
  * When a new component is requested, it iterates through 
  * factories to locate the one able to create the requested component.
- * 
+ * <p>
  * This component is used to conveniently keep all supported factories in a single place.
  * <p>
  * ### Example ###

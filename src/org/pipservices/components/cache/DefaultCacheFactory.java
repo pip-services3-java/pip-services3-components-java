@@ -4,7 +4,7 @@ import org.pipservices.components.build.*;
 import org.pipservices.commons.refer.*;
 
 /**
- * Creates ICache components by their descriptors.
+ * Creates {@link ICache} components by their descriptors.
  * 
  * @see Factory
  * @see ICache

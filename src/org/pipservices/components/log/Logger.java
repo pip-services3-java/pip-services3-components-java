@@ -7,17 +7,19 @@ import org.pipservices.commons.refer.*;
 /**
  * Abstract logger that captures and formats log messages.
  * Child classes take the captured messages and write them to their specific destinations.
- *
+ * <p>
  * ### Configuration parameters ###
- * 
+ * <p>
  * Parameters to pass to the configure() method for component configuration:
- *  
- * - level:             maximum log level to capture
- * - source:            source (context) name
- * 
+ * <ul> 
+ * <li>level:             maximum log level to capture
+ * <li>source:            source (context) name
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:context-info:*:*:1.0     (optional) ContextInfo to detect the context id and specify counters source
+ * <ul>
+ * <li>*:context-info:*:*:1.0     (optional) {@link ContextInfo} to detect the context id and specify counters source
+ * </ul>
  * 
  * @see ILogger
  */

@@ -8,18 +8,22 @@ import org.pipservices.commons.errors.*;
 /**
  * Abstract logger that caches captured log messages in memory and periodically dumps them.
  * Child classes implement saving cached messages to their specified destinations.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * level:             maximum log level to capture
- * source:            source (context) name
- * options:
- *   interval:        interval in milliseconds to save log messages (default: 10 seconds)
- *   max_cache_size:  maximum number of messages stored in this cache (default: 100)        
- * 
+ * <ul>
+ * <li>level:             maximum log level to capture
+ * <li>source:            source (context) name
+ * <li>options:
+ *   <ul>
+ *   <li>interval:        interval in milliseconds to save log messages (default: 10 seconds)
+ *   <li>max_cache_size:  maximum number of messages stored in this cache (default: 100)
+ *   </ul>        
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:context-info:*:*:1.0     (optional) ContextInfo to detect the context id and specify counters source
+ * <ul>
+ * <li>*:context-info:*:*:1.0     (optional) {@link org.pipservices.components.info.ContextInfo} to detect the context id and specify counters source
+ * </ul>
  * 
  * @see ILogger
  * @see Logger

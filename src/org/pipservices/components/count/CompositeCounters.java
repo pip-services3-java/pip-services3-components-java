@@ -7,12 +7,13 @@ import org.pipservices.commons.refer.*;
 
 /**
  * Aggregates all counters from component references under a single component.
- * 
+ * <p>
  * It allows to capture metrics and conveniently send them to multiple destinations. 
- * 
+ * <p>
  * ### References ###
- * 
- * - *:counters:*:*:1.0         (optional) ICounters components to pass collected measurements
+ * <ul>
+ * <li>*:counters:*:*:1.0         (optional) {@link ICounters} components to pass collected measurements
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

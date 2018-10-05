@@ -6,13 +6,14 @@ import org.pipservices.commons.config.*;
 
 /**
  * Credential store that keeps credentials in memory.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * [credential key 1]:            
- *   ...                          credential parameters for key 1
- * [credential key 2]:            
- *   ...                          credential parameters for key N
+ * <ul>
+ * <li>[credential key 1]:            
+ * <li>...                          credential parameters for key 1
+ * <li>[credential key 2]:            
+ * <li>...                          credential parameters for key N
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

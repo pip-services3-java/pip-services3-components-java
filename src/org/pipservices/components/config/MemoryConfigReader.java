@@ -5,12 +5,12 @@ import org.pipservices.commons.errors.ApplicationException;
 
 /**
  * Config reader that stores configuration in memory.
- * 
+ * <p>
  * The reader supports parameterization using Handlebars
  * template engine.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
+ * <p>
  * The configuration parameters are the configuration template
  * <p>
  * ### Example ####

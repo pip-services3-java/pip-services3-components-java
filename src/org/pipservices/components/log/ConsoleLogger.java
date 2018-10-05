@@ -5,18 +5,20 @@ import java.time.format.*;
 
 /**
  * Logger that writes log messages to console.
- * 
+ * <p>
  * Errors are written to standard err stream
  * and all other messages to standard out stream.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * level:             maximum log level to capture
- * source:            source (context) name
- * 
+ * <ul>
+ * <li>level:             maximum log level to capture
+ * <li>source:            source (context) name
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:context-info:*:*:1.0     (optional) ContextInfo to detect the context id and specify counters source
+ * <ul>
+ * <li>*:context-info:*:*:1.0     (optional) {@link org.pipservices.components.info.ContextInfo} to detect the context id and specify counters source
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

@@ -4,7 +4,7 @@ import org.pipservices.components.build.*;
 import org.pipservices.commons.refer.*;
 
 /**
- * Creates ICounters components by their descriptors.
+ * Creates {@link ICounters} components by their descriptors.
  * 
  * @see Factory
  * @see NullCounters

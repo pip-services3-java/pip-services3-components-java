@@ -9,12 +9,15 @@ import org.pipservices.commons.errors.*;
 /**
  * Abstract implementation of performance counters that measures and stores counters in memory.
  * Child classes implement saving of the counters into various destinations.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * - options:
- *   - interval:        interval in milliseconds to save current counters measurements (default: 5 mins)
- *   - reset_timeout:   timeout in milliseconds to reset the counters. 0 disables the reset (default: 0)
+ * <ul>
+ * <li>options:
+ * <ul>
+ *   <li>interval:        interval in milliseconds to save current counters measurements (default: 5 mins)
+ *   <li>reset_timeout:   timeout in milliseconds to reset the counters. 0 disables the reset (default: 0)
+ * </ul>
+ * </ul>
  */
 public abstract class CachedCounters implements ICounters, IReconfigurable, ITimingCallback {
 	private final static long _defaultInterval = 300000;

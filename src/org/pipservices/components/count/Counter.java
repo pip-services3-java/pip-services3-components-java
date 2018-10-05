@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 /**
  * Data object to store measurement for a performance counter.
- * This object is used by CachedCounters to store counters.
+ * This object is used by {@link CachedCounters} to store counters.
  */
 public class Counter {
 	/** The counter unique name */

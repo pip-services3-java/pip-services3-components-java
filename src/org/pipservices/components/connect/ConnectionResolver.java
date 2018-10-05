@@ -8,26 +8,31 @@ import org.pipservices.commons.refer.*;
 
 /**
  * Helper class to retrieve component connections.
- * 
- * If connections are configured to be retrieved from IDiscovery,
- * it automatically locates IDiscovery in component references
- * and retrieve connections from there using discovery_key parameter.
- * 
+ * <p>
+ * If connections are configured to be retrieved from {@link IDiscovery},
+ * it automatically locates {@link IDiscovery} in component references
+ * and retrieve connections from there using <code>discovery_key</code> parameter.
+ * <p>
  * ### Configuration parameters ###
- * 
- * connection:    
- *   discovery_key:               (optional) a key to retrieve the connection from IDiscovery
- *   ...                          other connection parameters
- * 
- * connections:                   alternative to connection
- *   [connection params 1]:       first connection parameters
- *     ...
- *   [connection params N]:       Nth connection parameters
- *     ...
- * 
+ * <ul>
+ * <li>connection:    
+ *   <ul>
+ *   <li>discovery_key:               (optional) a key to retrieve the connection from {@link IDiscovery}
+ *   <li>...                          other connection parameters
+ *   </ul>
+ * <li>connections:                   alternative to connection
+ *   <ul>
+ *   <li>[connection params 1]:       first connection parameters
+ *   <li>...
+ *   <li>[connection params N]:       Nth connection parameters
+ *   <li>...
+ *   </ul>
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:discovery:*:*:1.0            (optional) IDiscovery services to resolve connections
+ * <ul>
+ * <li>*:discovery:*:*:1.0            (optional) {@link IDiscovery} services to resolve connections
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

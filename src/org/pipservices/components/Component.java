@@ -9,19 +9,23 @@ import org.pipservices.commons.refer.*;
 /**
  * Abstract component that supportes configurable dependencies, logging
  * and performance counters.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * dependencies:
- *   [dependency name 1]: Dependency 1 locator (descriptor)
- *   ...
- *   [dependency name N]: Dependency N locator (descriptor)
- * 
+ * <ul>
+ * <li>dependencies:
+ *   <ul>
+ *   <li>[dependency name 1]: Dependency 1 locator (descriptor)
+ *   <li>...
+ *   <li>[dependency name N]: Dependency N locator (descriptor)
+ * 	 </ul>
+ * </ul>
+ * <p>
  * ### References ###
- * 
- * - *:counters:*:*:1.0       (optional) [[ICounters]] components to pass collected measurements
- * - *:logger:*:*:1.0         (optional) [[ILogger]] components to pass log messages
- * - ...                      References must match configured dependencies.
+ * <ul>
+ * <li>*:counters:*:*:1.0       (optional) {@link org.pipservices.components.count.ICounters} components to pass collected measurements
+ * <li>*:logger:*:*:1.0         (optional) {@link org.pipservices.components.log.ILogger} components to pass log messages
+ * <li>...                      References must match configured dependencies.
+ * </ul>
  */
 public class Component implements IConfigurable, IReferenceable {
 	

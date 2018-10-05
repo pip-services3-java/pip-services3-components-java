@@ -2,7 +2,7 @@ package org.pipservices.components.cache;
 
 /**
  * Dummy cache implementation that doesn't do anything.
- * 
+ * <p>
  * It can be used in testing or in situations when cache is required
  * but shall be disabled.
  * 

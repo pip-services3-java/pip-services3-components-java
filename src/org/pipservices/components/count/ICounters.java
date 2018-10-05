@@ -4,11 +4,11 @@ import java.time.*;
 
 /**
  * Interface for performance counters that measure execution metrics.
- * 
+ * <p>
  * The performance counters measure how code is performing:
  * how fast or slow, how many transactions performed, how many objects
  * are stored, what was the latest transaction time and so on.
- * 
+ * <p>
  * They are critical to monitor and improve performance, scalability
  * and reliability of code in production. 
  */

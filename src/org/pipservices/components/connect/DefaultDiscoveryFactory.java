@@ -4,7 +4,7 @@ import org.pipservices.components.build.*;
 import org.pipservices.commons.refer.*;
 
 /**
- * Creates IDiscovery components by their descriptors.
+ * Creates {@link IDiscovery} components by their descriptors.
  * 
  * @see Factory
  * @see IDiscovery

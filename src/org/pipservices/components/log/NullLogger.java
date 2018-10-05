@@ -2,7 +2,7 @@ package org.pipservices.components.log;
 
 /**
  * Dummy implementation of logger that doesn't do anything.
- * 
+ * <p>
  * It can be used in testing or in situations when logger is required
  * but shall be disabled.
  * 

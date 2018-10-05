@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.*;
 
 /**
  * Data object to store captured log messages.
- * This object is used by CachedLogger.
+ * This object is used by {@link CachedLogger}.
  */
 public class LogMessage {
 	/** The time then message was generated */

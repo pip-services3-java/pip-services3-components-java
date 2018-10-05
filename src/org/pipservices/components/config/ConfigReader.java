@@ -10,11 +10,12 @@ import com.github.jknack.handlebars.Template;
 
 /**
  * Abstract config reader that supports configuration parameterization.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * parameters:            this entire section is used as template parameters
- *   ...
+ * <ul>
+ * <li>parameters:            this entire section is used as template parameters
+ * <li>  ...
+ * </ul>
  * 
  *  @see IConfigReader
  */

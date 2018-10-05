@@ -11,14 +11,15 @@ import com.fasterxml.jackson.dataformat.yaml.*;
 
 /**
  * Config reader that reads configuration from YAML file.
- * 
+ * <p>
  * The reader supports parameterization using Handlebar template engine.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * path:          path to configuration file
- * parameters:    this entire section is used as template parameters
- *   ...
+ * <ul>
+ * <li>path:          path to configuration file
+ * <li>parameters:    this entire section is used as template parameters
+ * <li>...
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

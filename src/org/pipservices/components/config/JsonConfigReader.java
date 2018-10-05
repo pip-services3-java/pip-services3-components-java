@@ -13,14 +13,15 @@ import com.fasterxml.jackson.databind.*;
 
 /**
  * Config reader that reads configuration from JSON file.
- * 
+ * <p>
  * The reader supports parameterization using Handlebars template engine.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * path:          path to configuration file
- * parameters:    this entire section is used as template parameters
- *   ...
+ * <ul>
+ * <li>path:          path to configuration file
+ * <li>parameters:    this entire section is used as template parameters
+ * <li>...
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>

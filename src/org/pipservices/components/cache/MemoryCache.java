@@ -8,14 +8,17 @@ import org.pipservices.commons.run.*;
 
 /**
  * Cache that stores values in the process memory.
- * 
+ * <p>
  * Remember: This implementation is not suitable for synchronization of distributed processes.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * options:
- *   timeout:               default caching timeout in milliseconds (default: 1 minute)
- *   max_size:              maximum number of values stored in this cache (default: 1000)        
+ * <ul>
+ * <li>options:
+ *   <ul>
+ *   <li>timeout:               default caching timeout in milliseconds (default: 1 minute)
+ *   <li>max_size:              maximum number of values stored in this cache (default: 1000)
+ *   </ul>
+ * </ul>        
  * <p>
  * ### Example ###
  * <pre>

@@ -2,7 +2,7 @@ package org.pipservices.components.log;
 
 /**
  * Standard log levels.
- * 
+ * <p>
  * Logs at debug and trace levels are usually captured
  * only locally for troubleshooting
  * and never sent to consolidated log services.

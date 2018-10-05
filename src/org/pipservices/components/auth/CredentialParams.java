@@ -10,20 +10,21 @@ import org.pipservices.components.connect.*;
  * Contains credentials to authenticate against external services.
  * They are used together with connection parameters, but usually stored
  * in a separate store, protected from unauthorized access.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * store_key:     key to retrieve parameters from credential store
- * username:      user name
- * user:          alternative to username
- * password:      user password
- * pass:          alternative to password
- * access_id:     application access id
- * client_id:     alternative to access_id
- * access_key:    application secret key
- * client_key:    alternative to access_key
- * secret_key:    alternative to access_key
- * 
+ * <ul>
+ * <li>store_key:     key to retrieve parameters from credential store
+ * <li>username:      user name
+ * <li>user:          alternative to username
+ * <li>password:      user password
+ * <li>pass:          alternative to password
+ * <li>access_id:     application access id
+ * <li>client_id:     alternative to access_id
+ * <li>access_key:    application secret key
+ * <li>client_key:    alternative to access_key
+ * <li>secret_key:    alternative to access_key
+ * </ul>
+ * <p>
  * In addition to standard parameters CredentialParams may contain any number of custom parameters
  * <p> 
  * ### Example ###

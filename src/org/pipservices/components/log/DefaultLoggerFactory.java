@@ -4,7 +4,7 @@ import org.pipservices.components.build.*;
 import org.pipservices.commons.refer.*;
 
 /**
- * Creates ILogger components by their descriptors.
+ * Creates {@link ILogger} components by their descriptors.
  * 
  * @see Factory
  * @see NullLogger

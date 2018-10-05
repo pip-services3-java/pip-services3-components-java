@@ -6,13 +6,14 @@ import org.pipservices.commons.config.*;
 
 /**
  * Discovery service that keeps connections in memory.
- * 
+ * <p>
  * ### Configuration parameters ###
- * 
- * [connection key 1]:            
- *   ...                          connection parameters for key 1
- * [connection key 2]:            
- *   ...                          connection parameters for key N
+ * <ul>
+ * <li>[connection key 1]:            
+ * <li>...                          connection parameters for key 1
+ * <li>[connection key 2]:            
+ * <li>...                          connection parameters for key N
+ * </ul>
  * <p>
  * ### Example ###
  * <pre>
