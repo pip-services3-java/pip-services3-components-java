@@ -39,7 +39,7 @@ import org.pipservices.components.auth.*;
  * String cluster = connection.getAsNullableString("cluster");     // Result: "mycluster"  
  * }
  * </pre>
- * @see <a href="https://raw.githubusercontent.com/pip-services-java/pip-services-commons-java/master/doc/api/org/pipservices/commons/config/ConfigParams.html">ConfigParams</a>
+ * @see ConfigParams
  * @see CredentialParams
  * @see ConnectionResolver
  * @see IDiscovery 
