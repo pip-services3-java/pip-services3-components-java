@@ -1,31 +1,71 @@
-# <img src="https://github.com/pip-services/pip-services/raw/master/design/Logo.png" alt="Pip.Services Logo" style="max-width:30%"> <br/> Basic portable abstractions for Java
+# <img src="https://uploads-ssl.webflow.com/5ea5d3315186cf5ec60c3ee4/5edf1c94ce4c859f2b188094_logo.svg" alt="Pip.Services Logo" width="200"> <br/> Component definitions for Java
 
-This framework is a part of [Pip.Services](https://github.com/pip-services/pip-services) project.
-It provides basic building blocks that can be used to implement non-trivial business logic in applications and services.
+This module is a part of the [Pip.Services](http://pipservices.org) polyglot microservices toolkit.
 
-The key difference of this framework is a portable implementation across variety of different languages. 
-Currently it supports Java, .NET, Python, Node.js, Golang. The code provides reasonably thin abstraction layer 
-over most fundamental functions and delivers symmetric implementation that can be quickly ported between different platforms.
+The Components module contains standard component definitions that can be used to build applications and services.
 
-All functionality is decomposed into several packages:
+The module contains the following packages:
+- **Auth** - authentication credential stores
+- **Build** - basic factories for constructing objects
+- **Cache** - distributed cache
+- **Config** - configuration readers and managers, whose main task is to deliver configuration parameters to the application from wherever they are being stored
+- **Connect** - connection discovery and configuration services
+- **Count** - performance counters
+- **Info** - context info implementations that manage the saving of process information and sending additional parameter sets
+- **Log** - basic logging components that provide console and composite logging, as well as an interface for developing custom loggers
+- **Component** - the root package
 
-- **Auth** - authentication and authorization primitives
-- **Build** - component factories framework
-- **Cache** - object caching
-- **Config** - configuration framework
-- **Connect** - connection management
-- **Count** - performance counters components
-- **Info** - context info
-- **Log** - logging components
+<a name="links"></a> Quick links:
 
-Quick Links:
+* [Logging](https://www.pipservices.org/recipies/logging)
+* [Configuration](https://www.pipservices.org/recipies/configuration) 
+* [API Reference](https://pip-services3-java.github.io/pip-services3-components-java/)
+* [Change Log](CHANGELOG.md)
+* [Get Help](https://www.pipservices.org/community/help)
+* [Contribute](https://www.pipservices.org/community/contribute)
 
-* [Downloads](https://github.com/pip-services3-java/pip-services3-components-java/blob/master/doc/Downloads.md)
-* [API Reference](http://htmlpreview.github.io/?https://github.com/pip-services3-java/pip-services3-components-java/blob/master/doc/api/index.html)
-* [Building and Testing](https://github.com/pip-services3-java/pip-services3-components-java/blob/master/doc/Development.md)
-* [Contributing](https://github.com/pip-services3-java/pip-services3-components-java/blob/master/doc/Development.md/#contrib)
+## Use
 
-## Acknowledgements
+Go to the pom.xml file in Maven project and add dependencies::
+```xml
+<dependency>
+  <groupId>org.pipservices3</groupId>
+  <artifactId>pip-services3-components</artifactId>
+  <version>3.0.0</version>
+</dependency>
+```
+
+## Develop
+
+For development you shall install the following prerequisites:
+* Java SE Development Kit 8+
+* Eclipse Java Photon or another IDE of your choice
+* Docker
+* Apache Maven
+
+Build the project:
+```bash
+mvn install
+```
+
+Run automated tests:
+```bash
+mvn test
+```
+
+Generate API documentation:
+```bash
+./docgen.ps1
+```
+
+Before committing changes run dockerized build and test as:
+```bash
+./build.ps1
+./test.ps1
+./clear.ps1
+```
+
+## Contacts
 
 The initial implementation is done by **Sergey Seroukhov**. Pip.Services team is looking for volunteers to 
 take ownership over Java implementation in the project.
