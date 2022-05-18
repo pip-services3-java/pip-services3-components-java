@@ -14,6 +14,18 @@ public class LogLevelConverter {
 	 * @return converted log level
 	 */
 	public static LogLevel toLogLevel(Object value) {
+		return toLogLevel(value, null);
+	}
+
+	/**
+	 * Converts numbers and strings to standard log level values.
+	 * @param value a value to be converted
+	 * @param defaultValue a default value if conversion is not possible
+	 * @return converted log level
+	 */
+	public static LogLevel toLogLevel(Object value, LogLevel defaultValue) {
+		if (defaultValue == null)
+			defaultValue = LogLevel.Info;
 		if (value == null)
 			return LogLevel.Info;
 
@@ -33,7 +45,7 @@ public class LogLevelConverter {
 		else if ("6".equals(value) || "TRACE".equals(value))
 			return LogLevel.Trace;
 		else
-			return LogLevel.Info;
+			return defaultValue;
 	}
 
 	/**

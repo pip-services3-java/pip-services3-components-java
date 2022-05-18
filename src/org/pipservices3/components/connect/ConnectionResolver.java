@@ -15,7 +15,7 @@ import org.pipservices3.commons.refer.*;
  * <p>
  * ### Configuration parameters ###
  * <ul>
- * <li>connection:    
+ * <li>connection:
  *   <ul>
  *   <li>discovery_key:               (optional) a key to retrieve the connection from {@link IDiscovery}
  *   <li>...                          other connection parameters
@@ -41,264 +41,266 @@ import org.pipservices3.commons.refer.*;
  *      "connection.host", "10.1.1.100",
  *      "connection.port", 8080
  * );
- * 
+ *
  * ConnectionResolver connectionResolver = new ConnectionResolver();
  * connectionResolver.configure(config);
  * connectionResolver.setReferences(references);
- * 
+ *
  * connectionResolver.resolve("123");
  * }
  * </pre>
+ *
  * @see ConnectionParams
  * @see IDiscovery
  */
 public class ConnectionResolver implements IConfigurable, IReferenceable {
-	private List<ConnectionParams> _connections = new ArrayList<ConnectionParams>();
-	private IReferences _references = null;
+    private final List<ConnectionParams> _connections = new ArrayList<ConnectionParams>();
+    private IReferences _references = null;
 
-	/**
-	 * Creates a new instance of connection resolver.
-	 */
-	public ConnectionResolver() {
-	}
+    /**
+     * Creates a new instance of connection resolver.
+     */
+    public ConnectionResolver() {
+    }
 
-	/**
-	 * Creates a new instance of connection resolver.
-	 * 
-	 * @param config (optional) component configuration parameters
-	 */
-	public ConnectionResolver(ConfigParams config) {
-		configure(config);
-	}
+    /**
+     * Creates a new instance of connection resolver.
+     *
+     * @param config (optional) component configuration parameters
+     */
+    public ConnectionResolver(ConfigParams config) {
+        configure(config);
+    }
 
-	/**
-	 * Creates a new instance of connection resolver.
-	 * 
-	 * @param config     (optional) component configuration parameters
-	 * @param references (optional) component references
-	 */
-	public ConnectionResolver(ConfigParams config, IReferences references) {
-		configure(config);
-		setReferences(references);
-	}
+    /**
+     * Creates a new instance of connection resolver.
+     *
+     * @param config     (optional) component configuration parameters
+     * @param references (optional) component references
+     */
+    public ConnectionResolver(ConfigParams config, IReferences references) {
+        if (config != null)
+            this.configure(config);
 
-	/**
-	 * Configures component by passing configuration parameters.
-	 * 
-	 * @param config          configuration parameters to be set.
-	 * @param configAsDefault boolean parameter for default configuration. If "true"
-	 *                        the default value will be added to the result.
-	 */
-	public void configure(ConfigParams config, boolean configAsDefault) {
-		_connections.addAll(ConnectionParams.manyFromConfig(config, configAsDefault));
-	}
+        if (references != null)
+            this.setReferences(references);
+    }
 
-	/**
-	 * Configures component by passing configuration parameters.
-	 * 
-	 * @param config configuration parameters to be set.
-	 */
-	public void configure(ConfigParams config) {
-		configure(config, true);
-	}
+    /**
+     * Configures component by passing configuration parameters.
+     *
+     * @param config          configuration parameters to be set.
+     * @param configAsDefault boolean parameter for default configuration. If "true"
+     *                        the default value will be added to the result.
+     */
+    public void configure(ConfigParams config, boolean configAsDefault) {
+        _connections.addAll(ConnectionParams.manyFromConfig(config, configAsDefault));
+    }
 
-	/**
-	 * Sets references to dependent components.
-	 * 
-	 * @param references references to locate the component dependencies.
-	 */
-	public void setReferences(IReferences references) {
-		_references = references;
-	}
+    /**
+     * Configures component by passing configuration parameters.
+     *
+     * @param config configuration parameters to be set.
+     */
+    public void configure(ConfigParams config) {
+        configure(config, true);
+    }
 
-	/**
-	 * Gets all connections configured in component configuration.
-	 * 
-	 * Redirect to Discovery services is not done at this point. If you need fully
-	 * fleshed connection use resolve() method instead.
-	 * 
-	 * @return a list with connection parameters
-	 */
-	public List<ConnectionParams> getAll() {
-		return _connections;
-	}
+    /**
+     * Sets references to dependent components.
+     *
+     * @param references references to locate the component dependencies.
+     */
+    public void setReferences(IReferences references) {
+        _references = references;
+    }
 
-	/**
-	 * Adds a new connection to component connections
-	 * 
-	 * @param connection new connection parameters to be added
-	 */
-	public void add(ConnectionParams connection) {
-		_connections.add(connection);
-	}
+    /**
+     * Gets all connections configured in component configuration.
+     * <p>
+     * Redirect to Discovery services is not done at this point. If you need fully
+     * fleshed connection use resolve() method instead.
+     *
+     * @return a list with connection parameters
+     */
+    public List<ConnectionParams> getAll() {
+        return _connections;
+    }
 
-	private boolean registerInDiscovery(String correlationId, ConnectionParams connection) throws ApplicationException {
+    /**
+     * Adds a new connection to component connections
+     *
+     * @param connection new connection parameters to be added
+     */
+    public void add(ConnectionParams connection) {
+        _connections.add(connection);
+    }
 
-		if (connection.useDiscovery() == false)
-			return false;
+    private boolean registerInDiscovery(String correlationId, ConnectionParams connection) throws ApplicationException {
 
-		String key = connection.getDiscoveryKey();
-		if (_references == null)
-			return false;
+        if (!connection.useDiscovery())
+            return false;
 
-		List<Object> components = _references.getOptional(new Descriptor("*", "discovery", "*", "*", "*"));
-		if (components == null)
-			return false;
+        String key = connection.getDiscoveryKey();
+        if (_references == null)
+            return false;
 
-		for (Object component : components) {
-			if (component instanceof IDiscovery) {
-				((IDiscovery) component).register(correlationId, key, connection);
-			}
-		}
-		return true;
-	}
+        List<Object> components = _references.getOptional(new Descriptor("*", "discovery", "*", "*", "*"));
+        if (components == null)
+            return false;
 
-	/**
-	 * Registers the given connection in all referenced discovery services. This
-	 * method can be used for dynamic service discovery.
-	 * 
-	 * @param correlationId (optional) transaction id to trace execution through
-	 *                      call chain.
-	 * @param connection    a connection to register.
-	 * @throws ApplicationException when error occured.
-	 * 
-	 * @see IDiscovery
-	 */
-	public void register(String correlationId, ConnectionParams connection) throws ApplicationException {
-		boolean result = registerInDiscovery(correlationId, connection);
+        for (Object component : components) {
+            if (component instanceof IDiscovery) {
+                ((IDiscovery) component).register(correlationId, key, connection);
+            }
+        }
+        return true;
+    }
 
-		if (result)
-			_connections.add(connection);
-	}
+    /**
+     * Registers the given connection in all referenced discovery services. This
+     * method can be used for dynamic service discovery.
+     *
+     * @param correlationId (optional) transaction id to trace execution through
+     *                      call chain.
+     * @param connection    a connection to register.
+     * @throws ApplicationException when error occured.
+     * @see IDiscovery
+     */
+    public void register(String correlationId, ConnectionParams connection) throws ApplicationException {
+        boolean result = registerInDiscovery(correlationId, connection);
 
-	private ConnectionParams resolveInDiscovery(String correlationId, ConnectionParams connection)
-			throws ApplicationException {
+        if (result)
+            _connections.add(connection);
+    }
 
-		if (connection.useDiscovery() == false)
-			return null;
+    private ConnectionParams resolveInDiscovery(String correlationId, ConnectionParams connection)
+            throws ApplicationException {
 
-		String key = connection.getDiscoveryKey();
-		if (_references == null)
-			return null;
+        if (!connection.useDiscovery())
+            return null;
 
-		List<Object> components = _references.getOptional(new Descriptor("*", "discovery", "*", "*", "*"));
-		if (components.size() == 0)
-			throw new ConfigException(correlationId, "CANNOT_RESOLVE", "Discovery wasn't found to make resolution");
+        String key = connection.getDiscoveryKey();
+        if (_references == null)
+            return null;
 
-		for (Object component : components) {
-			if (component instanceof IDiscovery) {
-				ConnectionParams resolvedConnection = ((IDiscovery) component).resolveOne(correlationId, key);
-				if (resolvedConnection != null)
-					return resolvedConnection;
-			}
-		}
+        Descriptor discoveryDescriptor = new Descriptor("*", "discovery", "*", "*", "*");
+        List<Object> components = _references.getOptional(discoveryDescriptor);
+        if (components.size() == 0)
+            throw new ReferenceException(correlationId, discoveryDescriptor);
 
-		return null;
-	}
+        for (Object component : components) {
+            if (component instanceof IDiscovery) {
+                ConnectionParams resolvedConnection = ((IDiscovery) component).resolveOne(correlationId, key);
+                if (resolvedConnection != null)
+                    return resolvedConnection;
+            }
+        }
 
-	/**
-	 * Resolves a single component connection. If connections are configured to be
-	 * retrieved from Discovery service it finds a IDiscovery and resolves the
-	 * connection there.
-	 * 
-	 * @param correlationId (optional) transaction id to trace execution through
-	 *                      call chain.
-	 * @return resolved connection parameters or null if nothing was found.
-	 * @throws ApplicationException when error occured.
-	 * 
-	 * @see IDiscovery
-	 */
-	public ConnectionParams resolve(String correlationId) throws ApplicationException {
-		if (_connections.size() == 0)
-			return null;
+        return null;
+    }
 
-		// Return connection that doesn't require discovery
-		for (ConnectionParams connection : _connections) {
-			if (!connection.useDiscovery())
-				return connection;
-		}
+    /**
+     * Resolves a single component connection. If connections are configured to be
+     * retrieved from Discovery service it finds a IDiscovery and resolves the
+     * connection there.
+     *
+     * @param correlationId (optional) transaction id to trace execution through
+     *                      call chain.
+     * @return resolved connection parameters or null if nothing was found.
+     * @throws ApplicationException when error occured.
+     * @see IDiscovery
+     */
+    public ConnectionParams resolve(String correlationId) throws ApplicationException {
+        if (_connections.size() == 0)
+            return null;
 
-		// Return connection that require discovery
-		for (ConnectionParams connection : _connections) {
-			if (connection.useDiscovery()) {
-				ConnectionParams resolvedConnection = resolveInDiscovery(correlationId, connection);
-				if (resolvedConnection != null) {
-					// Merge configured and new parameters
-					resolvedConnection = new ConnectionParams(
-							ConfigParams.mergeConfigs(connection, resolvedConnection));
-					return resolvedConnection;
-				}
-			}
-		}
+        // Return connection that doesn't require discovery
+        for (ConnectionParams connection : _connections) {
+            if (!connection.useDiscovery())
+                return connection;
+        }
 
-		return null;
-	}
+        // Return connection that require discovery
+        for (ConnectionParams connection : _connections) {
+            if (connection.useDiscovery()) {
+                ConnectionParams resolvedConnection = resolveInDiscovery(correlationId, connection);
+                if (resolvedConnection != null) {
+                    // Merge configured and new parameters
+                    resolvedConnection = new ConnectionParams(
+                            ConfigParams.mergeConfigs(connection, resolvedConnection));
+                    return resolvedConnection;
+                }
+            }
+        }
 
-	private List<ConnectionParams> resolveAllInDiscovery(String correlationId, ConnectionParams connection)
-			throws ApplicationException {
+        return null;
+    }
 
-		List<ConnectionParams> result = new ArrayList<ConnectionParams>();
+    private List<ConnectionParams> resolveAllInDiscovery(String correlationId, ConnectionParams connection)
+            throws ApplicationException {
 
-		if (connection.useDiscovery() == false)
-			return result;
+        List<ConnectionParams> result = new ArrayList<ConnectionParams>();
 
-		String key = connection.getDiscoveryKey();
-		if (_references == null)
-			return null;
+        if (!connection.useDiscovery())
+            return result;
 
-		List<Object> components = _references.getOptional(new Descriptor("*", "discovery", "*", "*", "*"));
-		if (components.size() == 0)
-			throw new ConfigException(correlationId, "CANNOT_RESOLVE", "Discovery wasn't found to make resolution");
+        String key = connection.getDiscoveryKey();
+        if (_references == null)
+            return result;
 
-		for (Object component : components) {
-			if (component instanceof IDiscovery) {
-				List<ConnectionParams> resolvedConnections = ((IDiscovery) component).resolveAll(correlationId, key);
-				if (resolvedConnections != null)
-					result.addAll(resolvedConnections);
-			}
-		}
+        Descriptor discoveryDescriptor = new Descriptor("*", "discovery", "*", "*", "*");
+        List<Object> components = _references.getOptional(new Descriptor("*", "discovery", "*", "*", "*"));
+        if (components.size() == 0)
+            throw new ReferenceException(correlationId, discoveryDescriptor);
 
-		return result;
-	}
+        for (Object component : components) {
+            if (component instanceof IDiscovery) {
+                List<ConnectionParams> resolvedConnections = ((IDiscovery) component).resolveAll(correlationId, key);
+                if (resolvedConnections != null)
+                    result.addAll(resolvedConnections);
+            }
+        }
 
-	/**
-	 * Resolves all component connection. If connections are configured to be
-	 * retrieved from Discovery service it finds a IDiscovery and resolves the
-	 * connection there.
-	 * 
-	 * @param correlationId (optional) transaction id to trace execution through
-	 *                      call chain.
-	 * @return a list of resolved connections.
-	 * @throws ApplicationException when error occured.
-	 * 
-	 * @see IDiscovery
-	 */
-	public List<ConnectionParams> resolveAll(String correlationId) throws ApplicationException {
-		List<ConnectionParams> resolved = new ArrayList<ConnectionParams>();
-		List<ConnectionParams> toResolve = new ArrayList<ConnectionParams>();
+        return result;
+    }
 
-		// Sort connections
-		for (ConnectionParams connection : _connections) {
-			if (connection.useDiscovery())
-				toResolve.add(connection);
-			else
-				resolved.add(connection);
-		}
+    /**
+     * Resolves all component connection. If connections are configured to be
+     * retrieved from Discovery service it finds a IDiscovery and resolves the
+     * connection there.
+     *
+     * @param correlationId (optional) transaction id to trace execution through
+     *                      call chain.
+     * @return a list of resolved connections.
+     * @throws ApplicationException when error occured.
+     * @see IDiscovery
+     */
+    public List<ConnectionParams> resolveAll(String correlationId) throws ApplicationException {
+        List<ConnectionParams> resolved = new ArrayList<ConnectionParams>();
+        List<ConnectionParams> toResolve = new ArrayList<ConnectionParams>();
 
-		// Resolve addresses that require that
-		if (toResolve.size() > 0) {
-			for (ConnectionParams connection : toResolve) {
-				List<ConnectionParams> resolvedConnections = resolveAllInDiscovery(correlationId, connection);
-				for (ConnectionParams resolvedConnection : resolvedConnections) {
-					// Merge configured and new parameters
-					resolvedConnection = new ConnectionParams(
-							ConfigParams.mergeConfigs(connection, resolvedConnection));
-					resolved.add(resolvedConnection);
-				}
-			}
-		}
+        // Sort connections
+        for (ConnectionParams connection : _connections) {
+            if (connection.useDiscovery())
+                toResolve.add(connection);
+            else
+                resolved.add(connection);
+        }
 
-		return resolved;
-	}
+        // Resolve addresses that require that
+        if (toResolve.size() > 0) {
+            for (ConnectionParams connection : toResolve) {
+                List<ConnectionParams> results = resolveAllInDiscovery(correlationId, connection);
+                for (ConnectionParams result : results) {
+                    // Merge configured and new parameters
+                    ConnectionParams localResolvedConnection = new ConnectionParams(ConfigParams.mergeConfigs(connection, result));
+                    resolved.add(localResolvedConnection);
+                }
+            }
+        }
+
+        return resolved;
+    }
 
 }

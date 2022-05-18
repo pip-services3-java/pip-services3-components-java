@@ -37,8 +37,8 @@ import com.fasterxml.jackson.dataformat.yaml.*;
  * </pre>
  */
 public class YamlConfigReader extends FileConfigReader {
-	private static ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
-	private static TypeReference<Object> typeRef = new TypeReference<Object>() {
+	private static final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+	private static final TypeReference<Object> typeRef = new TypeReference<Object>() {
 	};
 
 	/**

@@ -19,7 +19,7 @@ public class NullCountersTest {
 
     @Test
     public void TestMeasureElapsedTime() {
-        Timing timer = counters.beginTiming("Test.Elapsed");
+        CounterTiming timer = counters.beginTiming("Test.Elapsed");
         timer.endTiming();
     }
 }

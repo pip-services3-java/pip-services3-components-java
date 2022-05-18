@@ -2,6 +2,7 @@ package org.pipservices3.components.log;
 
 import java.time.*;
 import java.time.format.*;
+import java.util.Arrays;
 
 /**
  * Logger that writes log messages to console.
@@ -55,7 +56,7 @@ public class ConsoleLogger extends Logger {
 			if (builder.length() > 0)
 				builder.append(" Caused by error: ");
 
-			builder.append(t.getMessage()).append(" StackTrace: ").append(t.getStackTrace());
+			builder.append(t.getMessage()).append(" StackTrace: ").append(Arrays.toString(t.getStackTrace()));
 
 			t = t.getCause();
 		}

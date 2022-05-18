@@ -24,7 +24,7 @@ public class CountersFixture {
 
         counter = _counters.get("Test.Increment", CounterType.Increment);
         assertNotNull(counter);
-        assertEquals((int)counter.getCount(), 4);
+        assertEquals((int) counter.getCount(), 4);
 
         _counters.timestampNow("Test.Timestamp");
         _counters.timestampNow("Test.Timestamp");
@@ -45,12 +45,12 @@ public class CountersFixture {
     }
 
     public void testMeasureElapsedTime() throws InvocationException {
-        Timing timing = _counters.beginTiming("Test.Elapsed");
+        CounterTiming timing = _counters.beginTiming("Test.Elapsed");
         try {
             Thread.sleep(100);
-        } catch (InterruptedException ex) { 
-        	// Do nothing...
-    	} finally {
+        } catch (InterruptedException ex) {
+            // Do nothing...
+        } finally {
             timing.endTiming();
         }
 

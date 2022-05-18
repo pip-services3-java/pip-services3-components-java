@@ -4,6 +4,8 @@ import org.pipservices3.commons.config.*;
 import org.pipservices3.components.info.ContextInfo;
 import org.pipservices3.commons.refer.*;
 
+import java.util.Arrays;
+
 /**
  * Abstract logger that captures and formats log messages.
  * Child classes take the captured messages and write them to their specific destinations.
@@ -39,7 +41,12 @@ public abstract class Logger implements ILogger, IReconfigurable, IReferenceable
 	 * @param config configuration parameters to be set.
 	 */
 	public void configure(ConfigParams config) {
-		_level = LogLevelConverter.toLogLevel(config.getAsObject("level"));
+		this._level = LogLevelConverter.toLogLevel(
+				config.getAsObject("level"),
+				this._level
+		);
+
+		this._source = config.getAsStringWithDefault("source", this._source);
 	}
 
 	/**
@@ -48,8 +55,8 @@ public abstract class Logger implements ILogger, IReconfigurable, IReferenceable
 	 * @param references references to locate the component dependencies.
 	 */
 	public void setReferences(IReferences references) {
-		Object contextInfo = references.getOneOptional(new Descriptor("pip-services3", "context-info", "*", "*", "1.0"));
-		if (contextInfo instanceof ContextInfo && contextInfo != null && _source == null)
+		Object contextInfo = references.getOneOptional(new Descriptor("pip-services", "context-info", "*", "*", "1.0"));
+		if (contextInfo instanceof ContextInfo && _source == null)
 			_source = ((ContextInfo) contextInfo).getName();
 	}
 
@@ -66,7 +73,7 @@ public abstract class Logger implements ILogger, IReconfigurable, IReferenceable
 			if (builder.length() > 0)
 				builder.append(" Caused by error: ");
 
-			builder.append(error.getMessage()).append(" StackTrace: ").append(error.getStackTrace());
+			builder.append(error.getMessage()).append(" StackTrace: ").append(Arrays.toString(error.getStackTrace()));
 
 			try {
 				error = error.getClass().newInstance();///// ????
@@ -78,6 +85,20 @@ public abstract class Logger implements ILogger, IReconfigurable, IReferenceable
 		return builder.toString();
 	}
 
+	/**
+	 * Gets the source (context) name.
+	 * @return the source (context) name.
+	 */
+	public String getSource() {
+		return this._source;
+	}
+	/**
+	 * Sets the source (context) name.
+	 * @param value a new source (context) name.
+	 */
+	public void setSource(String value) {
+		_source = value;
+	}
 	/**
 	 * Gets the maximum log level. Messages with higher log level are filtered out.
 	 * 

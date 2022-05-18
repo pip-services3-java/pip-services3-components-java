@@ -7,7 +7,7 @@ package org.pipservices3.components.count;
  * ### Example ###
  * <pre>
  * {@code
- * Timing timing = counters.beginTiming("mymethod.exec_time");
+ * CounterTiming timing = counters.beginTiming("mymethod.exec_time");
  * try {
  *     ...
  * } finally {
@@ -16,15 +16,15 @@ package org.pipservices3.components.count;
  * }
  * </pre>
  */
-public class Timing {
+public class CounterTiming {
 	private long _start;
-	private ITimingCallback _callback;
+	private ICounterTimingCallback _callback;
 	private String _counter;
 
 	/**
 	 * Creates a new instance of the timing callback object.
 	 */
-	public Timing() {
+	public CounterTiming() {
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class Timing {
 	 * @param counter  an associated counter name
 	 * @param callback a callback that shall be called when endTiming is called.
 	 */
-	public Timing(String counter, ITimingCallback callback) {
+	public CounterTiming(String counter, ICounterTimingCallback callback) {
 		_counter = counter;
 		_callback = callback;
 		_start = System.currentTimeMillis();

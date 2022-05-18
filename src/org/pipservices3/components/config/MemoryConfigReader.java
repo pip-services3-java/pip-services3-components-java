@@ -2,6 +2,7 @@ package org.pipservices3.components.config;
 
 import org.pipservices3.commons.config.*;
 import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.commons.run.INotifiable;
 
 /**
  * Config reader that stores configuration in memory.
@@ -20,15 +21,16 @@ import org.pipservices3.commons.errors.ApplicationException;
  *      "connection.host", "{{SERVICE_HOST}}",
  *      "connection.port", "{{SERVICE_PORT}}{{^SERVICE_PORT}}8080{{/SERVICE_PORT}}"
  * );
- * 
+ *
  * MemoryConfigReader configReader = new MemoryConfigReader();
  * configReader.configure(config);
- * 
+ *
  * ConfigParams parameters = ConfigParams.fromValue(process.env);
- * 
+ *
  * configReader.readConfig("123", parameters);
  * }
  * </pre>
+ *
  * @see IConfigReader
  */
 public class MemoryConfigReader implements IConfigReader, IReconfigurable {
@@ -37,12 +39,13 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
     /**
      * Creates a new instance of config reader.
      */
-    public MemoryConfigReader() {}
+    public MemoryConfigReader() {
+    }
 
     /**
      * Creates a new instance of config reader.
-     * 
-     * @param config        (optional) component configuration parameters
+     *
+     * @param config (optional) component configuration parameters
      */
     public MemoryConfigReader(ConfigParams config) {
         _config = config != null ? config : new ConfigParams();
@@ -50,8 +53,8 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
 
     /**
      * Configures component by passing configuration parameters.
-     * 
-     * @param config    configuration parameters to be set.
+     *
+     * @param config configuration parameters to be set.
      */
     public void configure(ConfigParams config) {
         _config = config;
@@ -59,16 +62,45 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
 
     /**
      * Reads configuration and parameterize it with given values.
-     * 
-     * @param correlationId     (optional) transaction id to trace execution through call chain.
-     * @param parameters        values to parameters the configuration or null to skip parameterization.
+     *
+     * @param correlationId (optional) transaction id to trace execution through call chain.
+     * @param parameters    values to parameters the configuration or null to skip parameterization.
      * @return ConfigParams configuration.
      */
     public ConfigParams readConfig(String correlationId, ConfigParams parameters) {
+//        if (parameters != null) {
+//            let config = new ConfigParams(this._config).toString();
+//            let template = new MustacheTemplate(config);
+//            config = template.evaluateWithVariables(parameters);
+//            return ConfigParams.fromString(config);
+//        } else {
+//            let config = new ConfigParams(this._config);;
+//            return config;
+//        } TODO: add mustache template
         return new ConfigParams(_config);
     }
 
     public ConfigParams readConfigSection(String correlationId, String section) {
         return _config != null ? _config.getSection(section) : null;
+    }
+
+    /**
+     * Adds a listener that will be notified when configuration is changed
+     *
+     * @param listener a listener to be added.
+     */
+    @Override
+    public void addChangeListener(INotifiable listener) {
+
+    }
+
+    /**
+     * Remove a previously added change listener.
+     *
+     * @param listener a listener to be removed.
+     */
+    @Override
+    public void removeChangeListener(INotifiable listener) {
+
     }
 }

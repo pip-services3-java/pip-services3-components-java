@@ -3,7 +3,7 @@ package org.pipservices3.components.log;
 import static org.junit.Assert.*;
 
 public class LoggerFixture {
-    private ILogger _logger;
+    private final ILogger _logger;
 
     public LoggerFixture(ILogger logger) {
         _logger = logger;
@@ -22,19 +22,16 @@ public class LoggerFixture {
         _logger.log(LogLevel.Debug, "123", null, "Debug message...");
         _logger.log(LogLevel.Trace, "123", null, "Trace message...");
     }
-    
+
     public void testErrorLogging() {
-    	try
-        {
+        try {
             // Raise an exception
             throw new Exception();
-        }
-        catch (Exception ex)
-        {
-        	_logger.log(LogLevel.Fatal, "123", ex, "Fatal error...");
+        } catch (Exception ex) {
+            _logger.log(LogLevel.Fatal, "123", ex, "Fatal error...");
             _logger.log(LogLevel.Error, "123", ex, "Recoverable error...");
         }
-            
+
     }
-    
+
 }

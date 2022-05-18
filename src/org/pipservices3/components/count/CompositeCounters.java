@@ -28,7 +28,7 @@ import org.pipservices3.commons.refer.*;
  * 
  *     public void myMethod() {
  *         this._counters.increment("mycomponent.mymethod.calls");
- *         Timing timing = this._counters.beginTiming("mycomponent.mymethod.exec_time");
+ *         CounterTiming timing = this._counters.beginTiming("mycomponent.mymethod.exec_time");
  *         try {
  *            ...
  *         } finally {
@@ -40,8 +40,8 @@ import org.pipservices3.commons.refer.*;
  * </pre>
  * @see ICounters
  */
-public class CompositeCounters implements ICounters, ITimingCallback, IReferenceable {
-	private List<ICounters> _counters = new ArrayList<ICounters>();
+public class CompositeCounters implements ICounters, ICounterTimingCallback, IReferenceable {
+	private final List<ICounters> _counters = new ArrayList<ICounters>();
 
 	/**
 	 * Creates a new instance of the counters.
@@ -64,15 +64,15 @@ public class CompositeCounters implements ICounters, ITimingCallback, IReference
 	}
 
 	/**
-	 * Begins measurement of execution time interval. It returns Timing object which
-	 * has to be called at {@link Timing#endTiming()} to end the measurement and
+	 * Begins measurement of execution time interval. It returns CounterTiming object which
+	 * has to be called at {@link CounterTiming#endTiming()} to end the measurement and
 	 * update the counter.
 	 * 
 	 * @param name a counter name of Interval type.
-	 * @return a Timing callback object to end timing.
+	 * @return a CounterTiming callback object to end timing.
 	 */
-	public Timing beginTiming(String name) {
-		return new Timing(name, this);
+	public CounterTiming beginTiming(String name) {
+		return new CounterTiming(name, this);
 	}
 
 	/**
@@ -81,12 +81,12 @@ public class CompositeCounters implements ICounters, ITimingCallback, IReference
 	 * @param name    a counter name
 	 * @param elapsed execution elapsed time in milliseconds to update the counter.
 	 * 
-	 * @see Timing#endTiming()
+	 * @see CounterTiming#endTiming()
 	 */
 	public void endTiming(String name, float elapsed) {
 		for (ICounters counter : _counters) {
-			if (counter instanceof ITimingCallback)
-				((ITimingCallback) counter).endTiming(name, elapsed);
+			if (counter instanceof ICounterTimingCallback)
+				((ICounterTimingCallback) counter).endTiming(name, elapsed);
 		}
 	}
 

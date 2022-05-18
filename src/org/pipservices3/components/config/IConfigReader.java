@@ -2,6 +2,7 @@ package org.pipservices3.components.config;
 
 import org.pipservices3.commons.config.ConfigParams;
 import org.pipservices3.commons.errors.*;
+import org.pipservices3.commons.run.INotifiable;
 
 /**
  * Interface for configuration readers that retrieve configuration from various sources
@@ -23,4 +24,16 @@ public interface IConfigReader {
 	 * @throws ApplicationException when error occured.
 	 */
 	ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;
+
+	/**
+	 * Adds a listener that will be notified when configuration is changed
+	 * @param listener a listener to be added.
+	 */
+	void addChangeListener(INotifiable listener);
+
+	/**
+	 * Remove a previously added change listener.
+	 * @param listener a listener to be removed.
+	 */
+	void removeChangeListener(INotifiable listener);
 }

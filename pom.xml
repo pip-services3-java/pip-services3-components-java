@@ -3,7 +3,7 @@
 
   <groupId>org.pipservices</groupId>
   <artifactId>pip-services3-components</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
   <packaging>jar</packaging>
 
   <name>Pip.Services3 Components</name>
@@ -41,6 +41,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>12</maven.compiler.source>
+      <maven.compiler.target>12</maven.compiler.target>
   </properties>
 
   <build>
@@ -65,15 +67,15 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
+          <version>3.10.1</version>
           <configuration>
-              <source>1.8</source>
-              <target>1.8</target>
+              <source>${maven.compiler.source}</source>
+              <target>${maven.compiler.target}</target>
           </configuration>
       </plugin>
       <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.3</version>
+          <version>3.3.0</version>
           <configuration>
               <descriptorRefs>
                   <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -91,7 +93,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>2.1.2</version>
+          <version>3.2.1</version>
           <executions>
               <execution>
                   <id>attach-sources</id>
@@ -104,7 +106,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.4.0</version>
           <configuration>
               <reportOutputDirectory>${basedir}/docs</reportOutputDirectory>
               <destDir>.</destDir>
@@ -144,7 +146,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
+          <version>2.22.2</version>
           <configuration>
               <useSystemClassLoader>false</useSystemClassLoader>
           </configuration>
@@ -176,32 +178,35 @@
     <dependency>
         <groupId>org.pipservices</groupId>
         <artifactId>pip-services3-commons</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
+        <scope>system</scope>
+        <!--        TODO change path-->
+        <systemPath>${basedir}/libs/pip-services3-commons-3.1.0.jar</systemPath>
     </dependency>
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.7.2</version>
+        <version>2.13.0</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
-      <version>2.7.2</version>
+      <version>2.13.0</version>
     </dependency>
     <dependency>
        <groupId>com.fasterxml.jackson.datatype</groupId>
        <artifactId>jackson-datatype-jsr310</artifactId>
-       <version>2.7.2</version>
+       <version>2.13.0</version>
     </dependency>
     <dependency>
       <groupId>com.github.jknack</groupId>
       <artifactId>handlebars</artifactId>
-      <version>4.1.0</version>     
+      <version>4.1.0</version> <!--TODO change on expressions-->
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

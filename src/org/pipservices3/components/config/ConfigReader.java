@@ -7,6 +7,7 @@ import org.pipservices3.commons.errors.ApplicationException;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import org.pipservices3.commons.run.INotifiable;
 
 /**
  * Abstract config reader that supports configuration parameterization.
@@ -16,54 +17,74 @@ import com.github.jknack.handlebars.Template;
  * <li>parameters:            this entire section is used as template parameters
  * <li>  ...
  * </ul>
- * 
+ * <p>
  *  @see IConfigReader
  */
 public abstract class ConfigReader implements IConfigurable, IConfigReader {
-	private ConfigParams _parameters = new ConfigParams();
+    private ConfigParams _parameters = new ConfigParams();
 
-	/**
-	 * Configures component by passing configuration parameters.
-	 * 
-	 * @param config configuration parameters to be set.
-	 */
-	public void configure(ConfigParams config) {
-		ConfigParams parameters = config.getSection("parameters");
-		if (parameters.size() > 0) {
-			_parameters = parameters;
-		}
-	}
+    /**
+     * Configures component by passing configuration parameters.
+     *
+     * @param config configuration parameters to be set.
+     */
+    public void configure(ConfigParams config) {
+        ConfigParams parameters = config.getSection("parameters");
+        if (parameters.size() > 0) {
+            _parameters = parameters;
+        }
+    }
 
-	/**
-	 * Reads configuration and parameterize it with given values.
-	 * 
-	 * @param correlationId (optional) transaction id to trace execution through
-	 *                      call chain.
-	 * @param parameters    values to parameters the configuration or null to skip
-	 *                      parameterization.
-	 * @return ConfigParams configuration.
-	 * @throws ApplicationException when error occured.
-	 */
-	public abstract ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;
+    /**
+     * Reads configuration and parameterize it with given values.
+     *
+     * @param correlationId (optional) transaction id to trace execution through
+     *                      call chain.
+     * @param parameters    values to parameters the configuration or null to skip
+     *                      parameterization.
+     * @return ConfigParams configuration.
+     * @throws ApplicationException when error occured.
+     */
+    public abstract ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;
 
-	/**
-	 * Parameterized configuration template given as string with dynamic parameters.
-	 * 
-	 * The method uses Handlebars template engine.
-	 * 
-	 * @param config     a string with configuration template to be parameterized
-	 * @param parameters dynamic parameters to inject into the template
-	 * @return a parameterized configuration string.
-	 * @throws IOException when input/output error occured.
-	 */
-	protected static String parameterize(String config, ConfigParams parameters) throws IOException {
-		if (parameters == null) {
-			return config;
-		}
+    /**
+     * Parameterized configuration template given as string with dynamic parameters.
+     * <p>
+     * The method uses Handlebars template engine.
+     *
+     * @param config     a string with configuration template to be parameterized
+     * @param parameters dynamic parameters to inject into the template
+     * @return a parameterized configuration string.
+     * @throws IOException when input/output error occured.
+     */
+    protected static String parameterize(String config, ConfigParams parameters) throws IOException {
+        if (parameters == null) {
+            return config;
+        }
 
-		Handlebars handlebars = new Handlebars();
-		Template template = handlebars.compileInline(config);
+        Handlebars handlebars = new Handlebars();
+        Template template = handlebars.compileInline(config);
 
-		return template.apply(parameters);
-	}
+        return template.apply(parameters);
+    }
+
+    /**
+     * Adds a listener that will be notified when configuration is changed
+     *
+     * @param listener a listener to be added.
+     */
+    @Override
+    public void addChangeListener(INotifiable listener) {
+        // Do nothing...
+    }
+
+    /**
+     * Remove a previously added change listener.
+     *
+     * @param listener a listener to be removed.
+     */
+    @Override
+    public void removeChangeListener(INotifiable listener) {
+        // Do nothing...
+    }
 }

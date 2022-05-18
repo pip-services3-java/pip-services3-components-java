@@ -13,52 +13,53 @@ import org.pipservices3.commons.config.*;
  * <li>parameters:            this entire section is used as template parameters
  * <li>...
  * </ul>
- * 
+ *
  * @see IConfigReader
  * @see ConfigReader
  */
 public abstract class FileConfigReader extends ConfigReader implements IConfigurable {
-	protected String _path;
+    protected String _path;
 
-	/**
-	 * Creates a new instance of the config reader.
-	 */
-	public FileConfigReader() {
-	}
+    /**
+     * Creates a new instance of the config reader.
+     */
+    public FileConfigReader() {
+    }
 
-	/**
-	 * Creates a new instance of the config reader.
-	 * 
-	 * @param path (optional) a path to configuration file.
-	 */
-	public FileConfigReader(String path) {
-		_path = path;
-	}
+    /**
+     * Creates a new instance of the config reader.
+     *
+     * @param path (optional) a path to configuration file.
+     */
+    public FileConfigReader(String path) {
+        _path = path;
+    }
 
-	/**
-	 * Get the path to configuration file..
-	 * 
-	 * @return the path to configuration file.
-	 */
-	public String getPath() {
-		return _path;
-	}
+    /**
+     * Get the path to configuration file..
+     *
+     * @return the path to configuration file.
+     */
+    public String getPath() {
+        return _path;
+    }
 
-	/**
-	 * Set the path to configuration file.
-	 * 
-	 * @param value a new path to configuration file.
-	 */
-	public void setPath(String value) {
-		_path = value;
-	}
+    /**
+     * Set the path to configuration file.
+     *
+     * @param value a new path to configuration file.
+     */
+    public void setPath(String value) {
+        _path = value;
+    }
 
-	/**
-	 * Configures component by passing configuration parameters.
-	 * 
-	 * @param config configuration parameters to be set.
-	 */
-	public void configure(ConfigParams config) {
-		_path = config.getAsString("path");
-	}
+    /**
+     * Configures component by passing configuration parameters.
+     *
+     * @param config configuration parameters to be set.
+     */
+    public void configure(ConfigParams config) {
+        super.configure(config);
+        _path = config.getAsString("path");
+    }
 }

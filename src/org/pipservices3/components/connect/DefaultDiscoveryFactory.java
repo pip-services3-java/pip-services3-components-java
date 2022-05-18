@@ -11,9 +11,7 @@ import org.pipservices3.commons.refer.*;
  * @see MemoryDiscovery
  */
 public class DefaultDiscoveryFactory extends Factory {
-	public static final Descriptor Descriptor = new Descriptor("pip-services3-commons", "factory", "discovery",
-			"default", "1.0");
-	public static final Descriptor MemoryDiscoveryDescriptor = new Descriptor("pip-services3", "discovery", "memory",
+	public static final Descriptor MemoryDiscoveryDescriptor = new Descriptor("pip-services", "discovery", "memory",
 			"*", "1.0");
 
 	/**

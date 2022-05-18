@@ -3,7 +3,13 @@ package org.pipservices3.components.cache;
 import static org.junit.Assert.*;
 
 public class CacheFixture {
-    private ICache _cache;
+
+	private String KEY1 = "key1";
+	private String KEY2 = "key2";
+
+	private String VALUE1 = "value1";
+	private String VALUE2 = "value2";
+    private final ICache _cache;
 
     public CacheFixture(ICache cache) {
         _cache = cache;
@@ -58,5 +64,38 @@ public class CacheFixture {
     	value = _cache.retrieve(null, "test");
     	assertNull(value);
     }
+
+	public void testStoreAndRetrieve() throws InterruptedException {
+		this._cache.store(null, KEY1, VALUE1, 5000);
+		this._cache.store(null, KEY2, VALUE2, 5000);
+
+		Thread.sleep(500);
+
+		Object val = _cache.retrieve(null, KEY1);
+		assertNotNull(val);
+		assertEquals(VALUE1, val);
+
+		val = _cache.retrieve(null, KEY2);
+		assertNotNull(val);
+		assertEquals(VALUE2, val);
+	}
+
+	public void testRetrieveExpired() throws InterruptedException {
+		this._cache.store(null, KEY1, VALUE1, 1000);
+
+		Thread.sleep(1500);
+
+		Object val = this._cache.retrieve(null, KEY1);
+		assertNull(val);
+	}
+
+	public void testRemove() {
+		this._cache.store(null, KEY1, VALUE1, 1000);
+
+		this._cache.remove(null, KEY1);
+
+		Object val = this._cache.retrieve(null, KEY1);
+		assertNull(val);
+	}
     
 }

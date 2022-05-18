@@ -68,7 +68,7 @@ public class ConnectionResolverTest {
 		try {
 			connectionParams = connectionResolver.resolve("correlationId");
 		} catch (ApplicationException e) {
-			assertEquals("Discovery wasn't found to make resolution", e.getMessage());
+			assertEquals("Failed to obtain reference to *:discovery:*:*:*", e.getMessage());
 		}
 	}
 }

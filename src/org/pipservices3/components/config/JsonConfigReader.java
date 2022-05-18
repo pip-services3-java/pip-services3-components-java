@@ -10,6 +10,7 @@ import org.pipservices3.commons.errors.*;
 
 import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
+import org.pipservices3.commons.run.INotifiable;
 
 /**
  * Config reader that reads configuration from JSON file.
@@ -40,8 +41,8 @@ import com.fasterxml.jackson.databind.*;
  * @see FileConfigReader
  */
 public class JsonConfigReader extends FileConfigReader {
-	private static ObjectMapper jsonMapper = new ObjectMapper();
-	private static TypeReference<Object> typeRef = new TypeReference<Object>() {
+	private static final ObjectMapper jsonMapper = new ObjectMapper();
+	private static final TypeReference<Object> typeRef = new TypeReference<Object>() {
 	};
 
 	/**

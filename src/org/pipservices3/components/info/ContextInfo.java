@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 		"name", "MyMicroservice",
  * 		"description", "My first microservice"
  * ));
- * 
+ *
  * context.getName();			// Result: "MyMicroservice"
  * context.getContextId();		// Possible result: "mylaptop"
  * context.getStartTime();		// Possible result: 2018-01-01:22:12:23.45Z
@@ -39,171 +39,159 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * </pre>
  */
 public final class ContextInfo implements IReconfigurable {
-	private String _name = "unknown";
-	private StringValueMap _properties = new StringValueMap();
-	private String _description;
-	private String contextId;
-	private ZonedDateTime startTime = ZonedDateTime.now(ZoneId.of("UTC"));
-	private long uptime;
+    private String _name = "unknown";
+    private StringValueMap _properties = new StringValueMap();
+    private String _description = null;
+    private String contextId = System.getenv("HOSTNAME") == null ?
+            System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+    private ZonedDateTime startTime = ZonedDateTime.now(ZoneId.of("UTC"));
 
-	/**
-	 * Creates a new instance of this context info.
-	 */
-	public ContextInfo() {
-	}
+    /**
+     * Creates a new instance of this context info.
+     */
+    public ContextInfo() {
+        _name = "unknown";
+    }
 
-	/**
-	 * Creates a new instance of this context info.
-	 * 
-	 * @param name        (optional) a context name.
-	 * @param description (optional) a human-readable description of the context.
-	 */
-	public ContextInfo(String name, String description) {
-		setName(name);
-		setDescription(description);
-	}
+    /**
+     * Creates a new instance of this context info.
+     *
+     * @param name        (optional) a context name.
+     * @param description (optional) a human-readable description of the context.
+     */
+    public ContextInfo(String name, String description) {
+        setName(name != null ? name : "unknown");
+        setDescription(description);
+    }
 
-	/**
-	 * Configures component by passing configuration parameters.
-	 * 
-	 * @param config configuration parameters to be set.
-	 */
-	@Override
-	public void configure(ConfigParams config) {
-		_name = config.getAsStringWithDefault("name", _name);
-		_name = config.getAsStringWithDefault("info.name", _name);
+    /**
+     * Configures component by passing configuration parameters.
+     *
+     * @param config configuration parameters to be set.
+     */
+    @Override
+    public void configure(ConfigParams config) {
+        _name = config.getAsStringWithDefault("name", _name);
+        _description = config.getAsStringWithDefault("description", _description);
+        _properties = config.getSection("properties");
 
-		_description = config.getAsStringWithDefault("description", _description);
-		_description = config.getAsStringWithDefault("info.description", _description);
+    }
 
-		_properties = config.getSection("properties");
+    /**
+     * Gets the context name.
+     *
+     * @return the context name
+     */
+    @JsonProperty("name")
+    public String getName() {
+        return _name;
+    }
 
-	}
+    /**
+     * Sets the context name.
+     *
+     * @param _name a new name for the context.
+     */
+    public void setName(String _name) {
+        this._name = _name != null ? _name : "unknown";
+    }
 
-	/**
-	 * Gets the context name.
-	 * 
-	 * @return the context name
-	 */
-	@JsonProperty("name")
-	public String getName() {
-		return _name;
-	}
+    /**
+     * Gets the human-readable description of the context.
+     *
+     * @return the human-readable description of the context.
+     */
+    @JsonProperty("description")
+    public String getDescription() {
+        return _description;
+    }
 
-	/**
-	 * Sets the context name.
-	 * 
-	 * @param _name a new name for the context.
-	 */
-	public void setName(String _name) {
-		this._name = _name != null ? _name : "unknown";
-	}
+    /**
+     * Sets the human-readable description of the context.
+     *
+     * @param _description a new human readable description of the context.
+     */
+    public void setDescription(String _description) {
+        this._description = _description;
+    }
 
-	/**
-	 * Gets the human-readable description of the context.
-	 * 
-	 * @return the human-readable description of the context.
-	 */
-	@JsonProperty("description")
-	public String getDescription() {
-		return _description;
-	}
+    /**
+     * Gets the unique context id. Usually it is the current host name.
+     *
+     * @return the unique context id.
+     */
+    @JsonProperty("context_id")
+    public String getContextId() {
+        return contextId;
+    }
 
-	/**
-	 * Sets the human-readable description of the context.
-	 * 
-	 * @param _description a new human readable description of the context.
-	 */
-	public void setDescription(String _description) {
-		this._description = _description;
-	}
+    /**
+     * Sets the unique context id.
+     *
+     * @param contextId a new unique context id.
+     */
+    public void setContextId(String contextId) {
+        this.contextId = contextId;
+    }
 
-	/**
-	 * Gets the unique context id. Usually it is the current host name.
-	 * 
-	 * @return the unique context id.
-	 */
-	@JsonProperty("context_id")
-	public String getContextId() {
-		return contextId;
-	}
+    /**
+     * Gets the context start time.
+     *
+     * @return the context start time.
+     */
+    @JsonProperty("start_time")
+    public ZonedDateTime getStartTime() {
+        return startTime;
+    }
 
-	/**
-	 * Sets the unique context id.
-	 * 
-	 * @param contextId a new unique context id.
-	 */
-	public void setContextId(String contextId) {
-		this.contextId = contextId;
-	}
+    /**
+     * Sets the context start time.
+     *
+     * @param startTime a new context start time.
+     */
+    public void setStartTime(ZonedDateTime startTime) {
+        this.startTime = startTime != null ? startTime : ZonedDateTime.now(ZoneId.of("UTC"));
+    }
 
-	/**
-	 * Gets the context start time.
-	 * 
-	 * @return the context start time.
-	 */
-	@JsonProperty("start_time")
-	public ZonedDateTime getStartTime() {
-		return startTime;
-	}
+    /**
+     * Calculates the context uptime as from the start time.
+     *
+     * @return number of milliseconds from the context start time.
+     */
+    @JsonProperty("uptime")
+    public long getUptime() {
+        return ZonedDateTime.now(ZoneId.of("UTC")).toInstant().toEpochMilli() - startTime.toInstant().toEpochMilli();
+    }
 
-	/**
-	 * Sets the context start time.
-	 * 
-	 * @param startTime a new context start time.
-	 */
-	public void setStartTime(ZonedDateTime startTime) {
-		this.startTime = startTime;
-	}
+    /**
+     * Gets context additional parameters.
+     *
+     * @return a JSON object with additional context parameters.
+     */
+    @JsonProperty("properties")
+    public StringValueMap getProperties() {
+        return _properties;
+    }
 
-	/**
-	 * Calculates the context uptime as from the start time.
-	 * 
-	 * @return number of milliseconds from the context start time.
-	 */
-	@JsonProperty("uptime")
-	public long getUptime() {
-		return uptime;
-	}
+    /**
+     * Sets context additional parameters.
+     *
+     * @param _properties a JSON object with context additional parameters
+     */
+    public void setProperties(StringValueMap _properties) {
+        this._properties = _properties;
+    }
 
-	/**
-	 * Sets context uptime parameter.
-	 * 
-	 * @param uptime a new uptime parameter.
-	 */
-	public void setUptime(long uptime) {
-		this.uptime = uptime;
-	}
-
-	/**
-	 * Gets context additional parameters.
-	 * 
-	 * @return a JSON object with additional context parameters.
-	 */
-	@JsonProperty("properties")
-	public StringValueMap getProperties() {
-		return _properties;
-	}
-
-	/**
-	 * Sets context additional parameters.
-	 * 
-	 * @param _properties a JSON object with context additional parameters
-	 */
-	public void setProperties(StringValueMap _properties) {
-		this._properties = _properties;
-	}
-
-	/**
-	 * Creates a new ContextInfo and sets its configuration parameters.
-	 * 
-	 * @param config configuration parameters for the new ContextInfo.
-	 * @return a newly created ContextInfo
-	 */
-	public static ContextInfo fromConfig(ConfigParams config) {
-		ContextInfo result = new ContextInfo();
-		result.configure(config);
-		return result;
-	}
+    /**
+     * Creates a new ContextInfo and sets its configuration parameters.
+     *
+     * @param config configuration parameters for the new ContextInfo.
+     * @return a newly created ContextInfo
+     */
+    public static ContextInfo fromConfig(ConfigParams config) {
+        ContextInfo result = new ContextInfo();
+        result.configure(config);
+        return result;
+    }
 
 }
