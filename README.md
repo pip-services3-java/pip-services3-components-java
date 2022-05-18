@@ -14,7 +14,9 @@ The module contains the following packages:
 - **Info** - context info implementations that manage the saving of process information and sending additional parameter sets
 - **Lock** -  distributed lock components
 - **Log** - basic logging components that provide console and composite logging, as well as an interface for developing custom loggers
+- **State** - components for managing states
 - **Test** - minimal set of test components to make testing easier
+- **Trace** - tracer components
 - **Component** - the root package
 
 <a name="links"></a> Quick links:
