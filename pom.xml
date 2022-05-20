@@ -43,6 +43,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <maven.compiler.source>12</maven.compiler.source>
       <maven.compiler.target>12</maven.compiler.target>
+      <manchu.version>3.0.0</manchu.version>
   </properties>
 
   <build>
@@ -69,8 +70,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.10.1</version>
           <configuration>
-              <source>${maven.compiler.source}</source>
-              <target>${maven.compiler.target}</target>
+              <release>${maven.compiler.target}</release>
           </configuration>
       </plugin>
       <plugin>
@@ -173,6 +173,13 @@
                 <useSystemClassLoader>false</useSystemClassLoader>
             </configuration>
         </plugin>
+<!--            Update minor and patch versions-->
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.7</version>
+        </plugin>
+<!--            Dependency conflicts check-->
         <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
             <version>3.0.0</version>
@@ -199,7 +206,7 @@
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <version>9</version>
   </parent>
 
   <distributionManagement>
@@ -220,7 +227,7 @@
     <dependency>
         <groupId>org.pipservices</groupId>
         <artifactId>pip-services3-commons</artifactId>
-        <version>3.1.0</version>
+        <version>[${manchu.version},4.0.0-!)</version>
     </dependency>
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
