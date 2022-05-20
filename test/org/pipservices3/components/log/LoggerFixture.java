@@ -16,7 +16,7 @@ public class LoggerFixture {
 
     public void testTextOutput() {
         _logger.log(LogLevel.Fatal, "123", null, "Fatal error...");
-        _logger.log(LogLevel.Error, "123", null, "Recoverable error...");
+        _logger.log(LogLevel.Error, "123", new Exception("Test Exception"), "Recoverable error...");
         _logger.log(LogLevel.Warn, "123", null, "Warning...");
         _logger.log(LogLevel.Info, "123", null, "Information message...");
         _logger.log(LogLevel.Debug, "123", null, "Debug message...");

@@ -1,13 +1,15 @@
 package org.pipservices3.components.config;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.pipservices3.commons.config.*;
+import org.pipservices3.commons.data.StringValueMap;
 import org.pipservices3.commons.errors.ApplicationException;
 
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Template;
 import org.pipservices3.commons.run.INotifiable;
+import org.pipservices3.expressions.mustache.MustacheTemplate;
 
 /**
  * Abstract config reader that supports configuration parameterization.
@@ -57,15 +59,13 @@ public abstract class ConfigReader implements IConfigurable, IConfigReader {
      * @return a parameterized configuration string.
      * @throws IOException when input/output error occured.
      */
-    protected static String parameterize(String config, ConfigParams parameters) throws IOException {
+    protected static String parameterize(String config, ConfigParams parameters) throws Exception {
         if (parameters == null) {
             return config;
         }
 
-        Handlebars handlebars = new Handlebars();
-        Template template = handlebars.compileInline(config);
-
-        return template.apply(parameters);
+        var template = new MustacheTemplate(config);
+        return template.evaluateWithVariables(new HashMap<>(parameters));
     }
 
     /**

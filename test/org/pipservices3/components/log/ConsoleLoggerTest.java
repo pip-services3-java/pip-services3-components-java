@@ -3,12 +3,11 @@ package org.pipservices3.components.log;
 import org.junit.*;
 
 public class ConsoleLoggerTest {
-    private ILogger log;
     private LoggerFixture fixture;
 
     @Before
     public void setUp() throws Exception {
-        log = new ConsoleLogger();
+        ILogger log = new ConsoleLogger();
         fixture = new LoggerFixture(log);
     }
 

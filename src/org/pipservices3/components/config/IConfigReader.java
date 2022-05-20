@@ -23,7 +23,7 @@ public interface IConfigReader {
 	 * @return ConfigParams configuration.
 	 * @throws ApplicationException when error occured.
 	 */
-	ConfigParams readConfig(String correlationId, ConfigParams parameters) throws ApplicationException;
+	ConfigParams readConfig(String correlationId, ConfigParams parameters) throws Exception;
 
 	/**
 	 * Adds a listener that will be notified when configuration is changed

@@ -12,7 +12,7 @@ import org.pipservices3.commons.run.Parameters;
 public class ConfigReaderTest {
     
 	@Test
-    public void TestParameterize() throws IOException
+    public void TestParameterize() throws Exception
     {
         String config = "{{#if A}}{{B}}{{/if}}";
         Map<String, Object> values = Parameters.fromTuples(

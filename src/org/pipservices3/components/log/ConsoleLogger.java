@@ -43,28 +43,6 @@ public class ConsoleLogger extends Logger {
 	}
 
 	/**
-	 * Composes an human-readable error description
-	 * 
-	 * @param error an error to format.
-	 * @return a human-reable error description.
-	 */
-	protected String composeError(Exception error) {
-		StringBuilder builder = new StringBuilder();
-
-		Throwable t = error;
-		while (t != null) {
-			if (builder.length() > 0)
-				builder.append(" Caused by error: ");
-
-			builder.append(t.getMessage()).append(" StackTrace: ").append(Arrays.toString(t.getStackTrace()));
-
-			t = t.getCause();
-		}
-
-		return builder.toString();
-	}
-
-	/**
 	 * Writes a log message to the logger destination.
 	 * 
 	 * @param level         a log level.

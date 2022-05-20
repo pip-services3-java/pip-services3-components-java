@@ -1,8 +1,10 @@
 package org.pipservices3.components.config;
 
 import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.ApplicationException;
 import org.pipservices3.commons.run.INotifiable;
+import org.pipservices3.expressions.mustache.MustacheTemplate;
+
+import java.util.HashMap;
 
 /**
  * Config reader that stores configuration in memory.
@@ -67,17 +69,15 @@ public class MemoryConfigReader implements IConfigReader, IReconfigurable {
      * @param parameters    values to parameters the configuration or null to skip parameterization.
      * @return ConfigParams configuration.
      */
-    public ConfigParams readConfig(String correlationId, ConfigParams parameters) {
-//        if (parameters != null) {
-//            let config = new ConfigParams(this._config).toString();
-//            let template = new MustacheTemplate(config);
-//            config = template.evaluateWithVariables(parameters);
-//            return ConfigParams.fromString(config);
-//        } else {
-//            let config = new ConfigParams(this._config);;
-//            return config;
-//        } TODO: add mustache template
-        return new ConfigParams(_config);
+    public ConfigParams readConfig(String correlationId, ConfigParams parameters) throws Exception {
+        if (parameters != null) {
+            var config = new ConfigParams(this._config).toString();
+            var template = new MustacheTemplate(config);
+            config = template.evaluateWithVariables(new HashMap<>(parameters));
+            return ConfigParams.fromString(config);
+        } else {
+            return new ConfigParams(this._config);
+        }
     }
 
     public ConfigParams readConfigSection(String correlationId, String section) {
