@@ -103,7 +103,7 @@ public class ConnectionResolver implements IConfigurable, IReferenceable {
      * @param config configuration parameters to be set.
      */
     public void configure(ConfigParams config) {
-        configure(config, true);
+        configure(config, false);
     }
 
     /**

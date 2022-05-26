@@ -1,6 +1,7 @@
 package org.pipservices3.components.auth;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.pipservices3.commons.config.ConfigParams;
 import org.pipservices3.commons.data.*;
@@ -312,6 +313,28 @@ public class CredentialParams extends ConfigParams {
     public static CredentialParams mergeConfigs(ConfigParams... configs) {
         StringValueMap map = StringValueMap.fromMaps(configs);
         return new CredentialParams(map);
+    }
+
+    /**
+     * Merges two or more CredentialParams into one. The following ConfigParams override
+     * previously defined parameters.
+     *
+     * @param configs a list of CredentialParams objects to be merged.
+     * @return a new CredentialParams object.
+     * @see StringValueMap#fromMaps(Map...)
+     */
+    public static CredentialParams mergeConfigs(List<ConfigParams> configs) {
+        var unpackConn = new ConfigParams[configs.size()];
+
+        AtomicInteger i = new AtomicInteger();
+        configs.forEach(
+                (c) -> {
+                    unpackConn[i.get()] = ConfigParams.fromValue(c);
+                    i.getAndIncrement();
+                }
+        );
+
+        return mergeConfigs(unpackConn);
     }
 
 }
