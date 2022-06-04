@@ -1,13 +1,16 @@
 package org.pipservices3.components.config;
 
-import java.nio.file.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.commons.errors.ConfigException;
+import org.pipservices3.commons.errors.FileException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
-
-import com.fasterxml.jackson.core.type.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.dataformat.yaml.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Config reader that reads configuration from YAML file.
@@ -38,7 +41,7 @@ import com.fasterxml.jackson.dataformat.yaml.*;
  */
 public class YamlConfigReader extends FileConfigReader {
 	private static final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
-	private static final TypeReference<Object> typeRef = new TypeReference<Object>() {
+	private static final TypeReference<Object> typeRef = new TypeReference<>() {
 	};
 
 	/**

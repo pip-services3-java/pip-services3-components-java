@@ -1,9 +1,9 @@
 package org.pipservices3.components.connect;
 
-import java.util.*;
+import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.components.auth.CredentialParams;
 
-import org.pipservices3.commons.errors.*;
-import org.pipservices3.components.auth.*;
+import java.util.List;
 
 /**
  * Interface for discovery services which are used to store and resolve connection parameters

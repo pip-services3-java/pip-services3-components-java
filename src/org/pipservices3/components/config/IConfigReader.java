@@ -1,7 +1,7 @@
 package org.pipservices3.components.config;
 
 import org.pipservices3.commons.config.ConfigParams;
-import org.pipservices3.commons.errors.*;
+import org.pipservices3.commons.errors.ApplicationException;
 import org.pipservices3.commons.run.INotifiable;
 
 /**

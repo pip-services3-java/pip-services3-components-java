@@ -1,6 +1,6 @@
 package org.pipservices3.components.auth;
 
-import org.pipservices3.components.connect.*;
+import org.pipservices3.components.connect.ConnectionParams;
 
 /**
  * Interface for credential stores which are used to store and lookup credentials

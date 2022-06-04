@@ -1,7 +1,8 @@
 package org.pipservices3.components.auth;
 
-import org.pipservices3.components.build.*;
-import org.pipservices3.commons.refer.*;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.components.build.Factory;
+import org.pipservices3.components.build.IFactory;
 
 /**
  * Creates ICredentialStore components by their descriptors.

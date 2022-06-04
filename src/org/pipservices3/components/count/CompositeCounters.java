@@ -1,9 +1,13 @@
 package org.pipservices3.components.count;
 
-import java.time.ZonedDateTime;
-import java.util.*;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.commons.refer.IReferenceable;
+import org.pipservices3.commons.refer.IReferences;
+import org.pipservices3.commons.refer.ReferenceException;
 
-import org.pipservices3.commons.refer.*;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Aggregates all counters from component references under a single component.
@@ -41,7 +45,7 @@ import org.pipservices3.commons.refer.*;
  * @see ICounters
  */
 public class CompositeCounters implements ICounters, ICounterTimingCallback, IReferenceable {
-	private final List<ICounters> _counters = new ArrayList<ICounters>();
+	private final List<ICounters> _counters = new ArrayList<>();
 
 	/**
 	 * Creates a new instance of the counters.

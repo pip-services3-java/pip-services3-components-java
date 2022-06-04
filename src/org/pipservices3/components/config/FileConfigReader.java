@@ -1,6 +1,7 @@
 package org.pipservices3.components.config;
 
-import org.pipservices3.commons.config.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IConfigurable;
 
 /**
  * Abstract config reader that reads configuration from a file.

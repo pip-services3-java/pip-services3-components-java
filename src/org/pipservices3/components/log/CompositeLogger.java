@@ -1,8 +1,11 @@
 package org.pipservices3.components.log;
 
-import java.util.*;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.commons.refer.IReferences;
+import org.pipservices3.commons.refer.ReferenceException;
 
-import org.pipservices3.commons.refer.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Aggregates all loggers from component references under a single component.
@@ -41,7 +44,7 @@ import org.pipservices3.commons.refer.*;
  * @see ILogger
  */
 public class CompositeLogger extends Logger {
-    private final List<ILogger> _loggers = new ArrayList<ILogger>();
+    private final List<ILogger> _loggers = new ArrayList<>();
 
     /**
      * Creates a new instance of the logger.

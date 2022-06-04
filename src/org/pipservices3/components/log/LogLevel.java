@@ -21,5 +21,5 @@ public enum LogLevel {
 	/** Log everything except traces */
 	Debug,
 	/** Log everything. */
-	Trace;
+	Trace
 }

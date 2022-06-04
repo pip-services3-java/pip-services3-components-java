@@ -1,10 +1,15 @@
 package org.pipservices3.components.count;
 
-import java.time.*;
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IReconfigurable;
+import org.pipservices3.commons.errors.InvocationException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract implementation of performance counters that measures and stores counters in memory.
@@ -20,7 +25,7 @@ import org.pipservices3.commons.errors.*;
  * </ul>
  */
 public abstract class CachedCounters implements ICounters, IReconfigurable, ICounterTimingCallback {
-    private final Map<String, Counter> _cache = new HashMap<String, Counter>();
+    private final Map<String, Counter> _cache = new HashMap<>();
     private boolean _updated = false;
     private long _lastDumpTime = System.currentTimeMillis();
     protected long _lastResetTime = System.currentTimeMillis();
@@ -144,7 +149,7 @@ public abstract class CachedCounters implements ICounters, IReconfigurable, ICou
     public List<Counter> getAll() {
         synchronized (_lock) {
             resetIfNeeded();
-            return new ArrayList<Counter>(_cache.values());
+            return new ArrayList<>(_cache.values());
         }
     }
 

@@ -1,9 +1,10 @@
 package org.pipservices3.components.build;
 
-import java.util.*;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.commons.reflect.TypeReflector;
 
-import org.pipservices3.commons.reflect.*;
-import org.pipservices3.commons.refer.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basic component factory that creates components using registered types and factory functions.
@@ -37,8 +38,8 @@ public class Factory implements IFactory {
 		Object create(Object locator) throws Exception;
 	}
 
-	private class DefaultComponentFactory implements IComponentFactory {
-		private Class<?> _type;
+	private static class DefaultComponentFactory implements IComponentFactory {
+		private final Class<?> _type;
 
 		public DefaultComponentFactory(Class<?> type) {
 			_type = type;
@@ -49,9 +50,9 @@ public class Factory implements IFactory {
 		}
 	}
 
-	private class Registration {
-		private Object _locator;
-		private IComponentFactory _factory;
+	private static class Registration {
+		private final Object _locator;
+		private final IComponentFactory _factory;
 
 		public Registration(Object locator, IComponentFactory factory) {
 			this._locator = locator;
@@ -67,7 +68,7 @@ public class Factory implements IFactory {
 		}
 	}
 
-	private List<Registration> _registrations = new ArrayList<Registration>();
+	private final List<Registration> _registrations = new ArrayList<>();
 
 	/**
 	 * Registers a component using a factory method.

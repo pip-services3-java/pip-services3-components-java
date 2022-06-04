@@ -1,10 +1,10 @@
 package org.pipservices3.components.auth;
 
-import java.util.*;
-
-import org.pipservices3.commons.config.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IReconfigurable;
 import org.pipservices3.commons.data.AnyValueMap;
-import org.pipservices3.commons.data.StringValueMap;
+
+import java.util.List;
 
 /**
  * Credential store that keeps credentials in memory.

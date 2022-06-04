@@ -1,10 +1,12 @@
 package org.pipservices3.components.connect;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.data.StringValueMap;
+import org.pipservices3.components.auth.CredentialParams;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.data.*;
-import org.pipservices3.components.auth.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Contains connection parameters to connect to external services.
@@ -230,7 +232,7 @@ public class ConnectionParams extends ConfigParams {
      * @return a list of retrieved ConnectionParams
      */
     public static List<ConnectionParams> manyFromConfig(ConfigParams config, boolean configAsDefault) {
-        List<ConnectionParams> result = new ArrayList<ConnectionParams>();
+        List<ConnectionParams> result = new ArrayList<>();
 
         // Try to get multiple connections first
         ConfigParams connections = config.getSection("connections");

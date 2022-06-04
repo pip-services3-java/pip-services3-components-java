@@ -1,7 +1,6 @@
 package org.pipservices3.components.connect;
 
 import org.pipservices3.commons.config.ConfigParams;
-import org.pipservices3.commons.data.StringValueMap;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;

@@ -1,9 +1,14 @@
 package org.pipservices3.components.log;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IReconfigurable;
+import org.pipservices3.commons.errors.ErrorDescription;
+import org.pipservices3.commons.errors.ErrorDescriptionFactory;
+import org.pipservices3.commons.errors.InvocationException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract logger that caches captured log messages in memory and periodically dumps them.
@@ -31,7 +36,7 @@ import org.pipservices3.commons.errors.*;
  */
 public abstract class CachedLogger extends Logger implements IReconfigurable {
 
-    protected List<LogMessage> _cache = new ArrayList<LogMessage>();
+    protected List<LogMessage> _cache = new ArrayList<>();
     protected boolean _updated = false;
     protected long _lastDumpTime = System.currentTimeMillis();
     protected long _interval = 10000;
@@ -109,7 +114,7 @@ public abstract class CachedLogger extends Logger implements IReconfigurable {
                     return;
 
                 List<LogMessage> messages = _cache;
-                _cache = new ArrayList<LogMessage>();
+                _cache = new ArrayList<>();
 
                 try {
                     save(messages);

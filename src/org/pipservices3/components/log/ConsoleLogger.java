@@ -1,8 +1,8 @@
 package org.pipservices3.components.log;
 
-import java.time.*;
-import java.time.format.*;
-import java.util.Arrays;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Logger that writes log messages to console.

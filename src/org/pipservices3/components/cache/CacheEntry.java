@@ -5,7 +5,7 @@ package org.pipservices3.components.cache;
  */
 public class CacheEntry {
 	private long _expiration;
-	private String _key;
+	private final String _key;
 	private Object _value;
 
 	/**

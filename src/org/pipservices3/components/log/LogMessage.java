@@ -1,10 +1,10 @@
 package org.pipservices3.components.log;
 
-import java.time.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.pipservices3.commons.errors.ErrorDescription;
 
-import org.pipservices3.commons.errors.*;
-
-import com.fasterxml.jackson.annotation.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * Data object to store captured log messages.

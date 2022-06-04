@@ -1,12 +1,14 @@
 package org.pipservices3.components.auth;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.pipservices3.commons.config.ConfigParams;
-import org.pipservices3.commons.data.*;
+import org.pipservices3.commons.data.StringValueMap;
 import org.pipservices3.commons.reflect.RecursiveObjectReader;
-import org.pipservices3.components.connect.*;
+import org.pipservices3.components.connect.ConnectionParams;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Contains credentials to authenticate against external services.
@@ -206,7 +208,7 @@ public class CredentialParams extends ConfigParams {
      * @return a list of retrieved CredentialParams
      */
     public static List<CredentialParams> manyFromConfig(ConfigParams config, boolean configAsDefault) {
-        List<CredentialParams> result = new ArrayList<CredentialParams>();
+        List<CredentialParams> result = new ArrayList<>();
 
         // Try to get multiple credentials first
         ConfigParams credentials = config.getSection("credentials");

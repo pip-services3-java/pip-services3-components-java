@@ -1,16 +1,15 @@
 package org.pipservices3.components.config;
 
-import java.io.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.commons.errors.ConfigException;
+import org.pipservices3.commons.errors.FileException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import org.pipservices3.commons.config.ConfigParams;
-import org.pipservices3.commons.errors.*;
-
-import com.fasterxml.jackson.core.type.*;
-import com.fasterxml.jackson.databind.*;
-import org.pipservices3.commons.run.INotifiable;
 
 /**
  * Config reader that reads configuration from JSON file.
@@ -42,7 +41,7 @@ import org.pipservices3.commons.run.INotifiable;
  */
 public class JsonConfigReader extends FileConfigReader {
 	private static final ObjectMapper jsonMapper = new ObjectMapper();
-	private static final TypeReference<Object> typeRef = new TypeReference<Object>() {
+	private static final TypeReference<Object> typeRef = new TypeReference<>() {
 	};
 
 	/**

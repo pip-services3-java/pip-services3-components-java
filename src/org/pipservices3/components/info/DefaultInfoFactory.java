@@ -1,7 +1,7 @@
 package org.pipservices3.components.info;
 
+import org.pipservices3.commons.refer.Descriptor;
 import org.pipservices3.components.build.Factory;
-import org.pipservices3.commons.refer.*;
 
 /**
  * Creates information components by their descriptors.

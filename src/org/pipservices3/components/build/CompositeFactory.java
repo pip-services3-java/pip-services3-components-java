@@ -1,6 +1,8 @@
 package org.pipservices3.components.build;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Aggregates multiple factories into a single factory component.
@@ -23,7 +25,7 @@ import java.util.*;
  * </pre>
  */
 public class CompositeFactory implements IFactory {
-    private final List<IFactory> _factories = new ArrayList<IFactory>();
+    private final List<IFactory> _factories = new ArrayList<>();
 
     /**
      * Creates a new instance of the factory.

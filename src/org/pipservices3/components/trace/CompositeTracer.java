@@ -5,7 +5,6 @@ import org.pipservices3.commons.refer.Descriptor;
 import org.pipservices3.commons.refer.IReferenceable;
 import org.pipservices3.commons.refer.IReferences;
 import org.pipservices3.commons.refer.ReferenceException;
-import org.pipservices3.components.info.ContextInfo;
 
 import java.util.ArrayList;
 import java.util.List;

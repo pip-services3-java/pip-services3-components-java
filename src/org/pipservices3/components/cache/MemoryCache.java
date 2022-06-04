@@ -1,10 +1,11 @@
 package org.pipservices3.components.cache;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IReconfigurable;
+import org.pipservices3.commons.errors.ConfigException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
-import org.pipservices3.commons.run.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Cache that stores values in the process memory.
@@ -36,7 +37,7 @@ public class MemoryCache implements ICache, IReconfigurable {
     private final static long _defaultMaxSize = 1000;
 
     private final Object _lock = new Object();
-    private final Map<String, CacheEntry> _cache = new HashMap<String, CacheEntry>();
+    private final Map<String, CacheEntry> _cache = new HashMap<>();
     private int _count = 0;
     private long _timeout = _defaultTimeout;
     private long _maxSize = _defaultMaxSize;

@@ -1,10 +1,15 @@
 package org.pipservices3.components.auth;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IConfigurable;
+import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.commons.refer.IReferenceable;
+import org.pipservices3.commons.refer.IReferences;
+import org.pipservices3.commons.refer.ReferenceException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
-import org.pipservices3.commons.refer.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper class to retrieve component credentials.
@@ -54,7 +59,7 @@ import org.pipservices3.commons.refer.*;
  * @see ICredentialStore
  */
 public class CredentialResolver implements IConfigurable, IReferenceable {
-    private final List<CredentialParams> _credentials = new ArrayList<CredentialParams>();
+    private final List<CredentialParams> _credentials = new ArrayList<>();
     private IReferences _references = null;
 
     /**

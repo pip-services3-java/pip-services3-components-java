@@ -1,10 +1,15 @@
 package org.pipservices3.components.connect;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IConfigurable;
+import org.pipservices3.commons.errors.ApplicationException;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.commons.refer.IReferenceable;
+import org.pipservices3.commons.refer.IReferences;
+import org.pipservices3.commons.refer.ReferenceException;
 
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.errors.*;
-import org.pipservices3.commons.refer.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper class to retrieve component connections.
@@ -54,7 +59,7 @@ import org.pipservices3.commons.refer.*;
  * @see IDiscovery
  */
 public class ConnectionResolver implements IConfigurable, IReferenceable {
-    private final List<ConnectionParams> _connections = new ArrayList<ConnectionParams>();
+    private final List<ConnectionParams> _connections = new ArrayList<>();
     private IReferences _references = null;
 
     /**
@@ -240,7 +245,7 @@ public class ConnectionResolver implements IConfigurable, IReferenceable {
     private List<ConnectionParams> resolveAllInDiscovery(String correlationId, ConnectionParams connection)
             throws ApplicationException {
 
-        List<ConnectionParams> result = new ArrayList<ConnectionParams>();
+        List<ConnectionParams> result = new ArrayList<>();
 
         if (!connection.useDiscovery())
             return result;
@@ -277,8 +282,8 @@ public class ConnectionResolver implements IConfigurable, IReferenceable {
      * @see IDiscovery
      */
     public List<ConnectionParams> resolveAll(String correlationId) throws ApplicationException {
-        List<ConnectionParams> resolved = new ArrayList<ConnectionParams>();
-        List<ConnectionParams> toResolve = new ArrayList<ConnectionParams>();
+        List<ConnectionParams> resolved = new ArrayList<>();
+        List<ConnectionParams> toResolve = new ArrayList<>();
 
         // Sort connections
         for (ConnectionParams connection : _connections) {

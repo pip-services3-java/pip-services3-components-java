@@ -1,15 +1,13 @@
 package org.pipservices3.components.config;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.pipservices3.commons.config.*;
-import org.pipservices3.commons.data.StringValueMap;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IConfigurable;
 import org.pipservices3.commons.errors.ApplicationException;
-
 import org.pipservices3.commons.run.INotifiable;
 import org.pipservices3.expressions.mustache.MustacheTemplate;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Abstract config reader that supports configuration parameterization.

@@ -1,8 +1,11 @@
 package org.pipservices3.components.connect;
 
-import java.util.*;
+import org.pipservices3.commons.config.ConfigParams;
+import org.pipservices3.commons.config.IReconfigurable;
 
-import org.pipservices3.commons.config.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Discovery service that keeps connections in memory.
@@ -36,7 +39,7 @@ import org.pipservices3.commons.config.*;
  * @see ConnectionParams
  */
 public class MemoryDiscovery implements IDiscovery, IReconfigurable {
-    private final List<DiscoveryItem> _items = new ArrayList<DiscoveryItem>();
+    private final List<DiscoveryItem> _items = new ArrayList<>();
     private final Object _lock = new Object();
 
     /**
@@ -55,7 +58,7 @@ public class MemoryDiscovery implements IDiscovery, IReconfigurable {
             configure(config);
     }
 
-    private class DiscoveryItem {
+    private static class DiscoveryItem {
         public String key;
         public ConnectionParams connection;
     }
@@ -143,7 +146,7 @@ public class MemoryDiscovery implements IDiscovery, IReconfigurable {
      * @return receives found connections.
      */
     public List<ConnectionParams> resolveAll(String correlationId, String key) {
-        List<ConnectionParams> connections = new ArrayList<ConnectionParams>();
+        List<ConnectionParams> connections = new ArrayList<>();
 
         synchronized (_lock) {
             for (DiscoveryItem item : _items) {

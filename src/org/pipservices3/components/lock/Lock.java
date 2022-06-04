@@ -3,7 +3,6 @@ package org.pipservices3.components.lock;
 import org.pipservices3.commons.config.ConfigParams;
 import org.pipservices3.commons.config.IReconfigurable;
 import org.pipservices3.commons.errors.ApplicationException;
-import org.pipservices3.commons.errors.ConfigException;
 import org.pipservices3.commons.errors.ConflictException;
 
 /**

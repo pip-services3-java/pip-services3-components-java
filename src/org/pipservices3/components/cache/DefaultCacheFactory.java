@@ -1,7 +1,7 @@
 package org.pipservices3.components.cache;
 
-import org.pipservices3.components.build.*;
-import org.pipservices3.commons.refer.*;
+import org.pipservices3.commons.refer.Descriptor;
+import org.pipservices3.components.build.Factory;
 
 /**
  * Creates {@link ICache} components by their descriptors.

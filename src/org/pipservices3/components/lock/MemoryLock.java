@@ -32,7 +32,7 @@ import java.util.HashMap;
  * @see Lock
  */
 public class MemoryLock extends Lock {
-    private final HashMap<String, Long> _locks = new HashMap<String, Long>();
+    private final HashMap<String, Long> _locks = new HashMap<>();
 
     /**
      * Makes a single attempt to acquire a lock by its key.

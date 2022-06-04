@@ -1,7 +1,5 @@
 package org.pipservices3.components.lock;
 
-import org.pipservices3.commons.errors.ApplicationException;
-
 /**
  * Dummy lock implementation that doesn't do anything.
  * <p>
