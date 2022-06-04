@@ -35,7 +35,7 @@ Go to the pom.xml file in Maven project and add dependencies::
 <dependency>
   <groupId>org.pipservices3</groupId>
   <artifactId>pip-services3-components</artifactId>
-  <version>3.1.2</version>
+  <version>3.1.3</version>
 </dependency>
 ```
 

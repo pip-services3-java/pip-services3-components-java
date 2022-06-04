@@ -4,7 +4,7 @@
 
     <groupId>org.pipservices</groupId>
     <artifactId>pip-services3-components</artifactId>
-    <version>3.1.2</version>
+    <version>3.1.3</version>
     <packaging>jar</packaging>
 
     <name>Pip.Services3 Components</name>
@@ -43,8 +43,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>12</maven.compiler.source>
-        <maven.compiler.target>12</maven.compiler.target>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <minimal.pipversion>3.0.1</minimal.pipversion>
     </properties>
 
