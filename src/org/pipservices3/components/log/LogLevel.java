@@ -8,18 +8,25 @@ package org.pipservices3.components.log;
  * and never sent to consolidated log services.
  */
 public enum LogLevel {
+
 	/** Nothing to log */
-	None,
+	None(0),
 	/** Log only fatal errors that cause processes to crash */
-	Fatal,
+	Fatal(1),
 	/** Log all errors. */
-	Error,
+	Error(2),
 	/** Log errors and warnings */
-	Warn,
+	Warn(3),
 	/** Log errors and important information messages */
-	Info,
+	Info(4),
 	/** Log everything except traces */
-	Debug,
+	Debug(5),
 	/** Log everything. */
-	Trace
+	Trace(6);
+
+	private final Integer value;
+	LogLevel(final int val) {
+		value = val;
+	}
+	public int getValue() { return value; }
 }
